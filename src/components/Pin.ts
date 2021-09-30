@@ -37,7 +37,7 @@ export class Pin {
         }
         console.log('This tool name:' + this.name)
         this.state = kuchlanish
-        this.Pins.forEach((el: CPIN) => {
+        this.Pins.forEach((el:CPIN) => {
             switch (el.parent.type) {
                 case TOOLTYPE.XOR:{
                     let m: XOR = el.parent
@@ -63,13 +63,19 @@ export class Pin {
                     m.Fire()
                     break
                 }
+                case TOOLTYPE.NOT:{
+                    let m:SEGMENT7=el.parent
+                    m.Pins[el.pinName].Write(kuchlanish)
+                    m.Fire()
+                    break
+                }
                     
             }
         })
         
     }
     addPin(komponent: any = null, pinName: Pin = null) {
-        let komp: CPIN
+        let komp:CPIN
         if (komponent) {
             komp = {
                 parent: komponent,
