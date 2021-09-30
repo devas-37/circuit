@@ -1,0 +1,19 @@
+{
+    "name": "calculator-typescript",
+    "version": "1.0.0",
+    "author": "koedamon",
+    "license": "MIT",
+    "main": "index.js",
+    "scripts": {
+        "start": "webpack",
+        "watch": "webpack -w",
+        "build": "webpack --mode=production --devtool=none"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "ts-loader": "^6.0.4",
+        "typescript": "^3.5.3",
+        "webpack": "^4.37.0",
+        "webpack-cli": "^3.3.6"
+    }
+}
