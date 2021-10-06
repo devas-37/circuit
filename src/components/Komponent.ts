@@ -15,6 +15,6 @@ export class Komponent {
 
     }
     Fire() {
-        console.log("Fire on komponent")
+        console.log("Fire on komponent bilan fires")
     }
 }
