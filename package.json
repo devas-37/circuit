@@ -9,7 +9,11 @@
         "watch": "webpack -w",
         "build": "webpack --mode=production --devtool=none"
     },
-    "dependencies": {},
+    "dependencies": {
+        "node-sass": "^6.0.1",
+        "sass": "^1.44.0",
+        "sass-loader": "^12.3.0"
+    },
     "devDependencies": {
         "ts-loader": "^6.0.4",
         "typescript": "^3.5.3",
