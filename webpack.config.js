@@ -13,6 +13,9 @@ module.exports = {
         rules: [{
             test: /\.ts$/,
             use: "ts-loader"
+        }, {
+            test: /\.sass$/,
+            use: "sass-loader"
         }]
     },
     resolve: {

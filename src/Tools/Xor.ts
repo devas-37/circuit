@@ -10,8 +10,6 @@ export class XOR extends Komponent {
         C: new Pin('C', PINTYPE.CHIQISH)
     }
 
-    
-
     constructor(element: string, type: TOOLTYPE = null) {
         super(element, type)
     }
