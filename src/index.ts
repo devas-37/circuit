@@ -3,6 +3,7 @@ import { Battery } from "./Tools/Battery";
 import { SEGMENT7 } from "./Tools/Segment7";
 import { NOT } from "./Tools/Not";
 import { AND } from "./Tools/And";
+import "./styles/main-style.sass";
 let and = new AND("VaElementi", TOOLTYPE.AND, "root");
 let batt = new Battery("elementBattery", TOOLTYPE.BATTERY);
 let segment = new SEGMENT7("sifr", TOOLTYPE.SEG7, "root");

@@ -10,9 +10,11 @@
         "build": "webpack --mode=production --devtool=none"
     },
     "dependencies": {
+        "css-loader": "^6.5.1",
         "node-sass": "^6.0.1",
         "sass": "^1.44.0",
-        "sass-loader": "^12.3.0"
+        "sass-loader": "^12.3.0",
+        "style-loader": "^3.3.1"
     },
     "devDependencies": {
         "ts-loader": "^6.0.4",
