@@ -9,11 +9,6 @@ import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 
 export class AND extends Komponent {
-  Pins = {
-    A: new Pin("A", PINTYPE.KIRISH),
-    B: new Pin("B", PINTYPE.KIRISH),
-    C: new Pin("C", PINTYPE.CHIQISH, POSITION.RIGHT),
-  };
   size = {
     width: 45,
     height: 32,
@@ -21,7 +16,11 @@ export class AND extends Komponent {
 
   constructor() {
     super("AND", TOOLTYPE.AND);
-    this.setPins(this.Pins);
+    this.setPins({
+      A: new Pin("A", PINTYPE.KIRISH),
+      B: new Pin("B", PINTYPE.KIRISH),
+      C: new Pin("C", PINTYPE.CHIQISH, POSITION.RIGHT),
+    });
   }
 
   Fire() {

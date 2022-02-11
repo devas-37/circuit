@@ -3,22 +3,20 @@ import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 
 export class XOR extends Komponent {
-  public pins = {
-    A: new Pin("A", PINTYPE.KIRISH),
-    B: new Pin("B", PINTYPE.KIRISH),
-    C: new Pin("C", PINTYPE.CHIQISH, POSITION.RIGHT),
-  };
-
   constructor() {
     super("XOR", TOOLTYPE.XOR);
-    this.setPins(this.pins);
+    this.setPins({
+      A: new Pin("A", PINTYPE.KIRISH),
+      B: new Pin("B", PINTYPE.KIRISH),
+      C: new Pin("C", PINTYPE.CHIQISH, POSITION.RIGHT),
+    });
   }
 
   Fire() {
-    if (this.pins.A.state !== this.pins.B.state) {
-      this.pins.C.Write(KUCHLANISH.YUQORI);
+    if (this.Pins.A.state !== this.Pins.B.state) {
+      this.Pins.C.Write(KUCHLANISH.YUQORI);
     } else {
-      this.pins.C.Write(KUCHLANISH.PAST);
+      this.Pins.C.Write(KUCHLANISH.PAST);
     }
   }
 }

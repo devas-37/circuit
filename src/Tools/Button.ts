@@ -3,9 +3,6 @@ import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 
 export class Button extends Komponent {
-  Pins = {
-    A: new Pin("A", PINTYPE.CHIQISH, POSITION.RIGHT),
-  };
   Size = {
     width: 37,
     height: 32,
@@ -16,7 +13,9 @@ export class Button extends Komponent {
   };
   constructor() {
     super("", TOOLTYPE.BUTTON);
-    this.setPins(this.Pins);
+    this.setPins({
+      A: new Pin("A", PINTYPE.CHIQISH, POSITION.RIGHT),
+    });
     this.setSize(this.Size);
     let btn = this.elt("div");
     btn.classList.add("buttonELBtn");

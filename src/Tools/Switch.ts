@@ -9,9 +9,6 @@ import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 
 export class Switch extends Komponent {
-  Pins = {
-    A: new Pin("A", PINTYPE.CHIQISH, POSITION.RIGHT),
-  };
   Size = {
     width: 40,
     height: 20,
@@ -19,7 +16,9 @@ export class Switch extends Komponent {
   state = WIRESTATE.OFF;
   constructor() {
     super("", TOOLTYPE.SWITCH);
-    this.setPins(this.Pins);
+    this.setPins({
+      A: new Pin("A", PINTYPE.CHIQISH, POSITION.RIGHT),
+    });
     this.setSize(this.Size);
     let swContainer = this.elt("div");
     swContainer.classList.add("actionBtn");
