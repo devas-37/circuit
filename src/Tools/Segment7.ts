@@ -4,6 +4,7 @@ import { Pin } from "../components/Pin";
 class SEGMENT {
   private element: SVGElement;
   private q: string = "http://www.w3.org/2000/svg";
+
   constructor(type: string) {
     this.element = document.createElementNS("http://www.w3.org/2000/svg", type);
     this.off();
@@ -12,10 +13,10 @@ class SEGMENT {
     this.element.setAttributeNS(null, attr, d);
   }
   on() {
-    this.element.setAttributeNS(null, "fill", "lime");
+    this.element.setAttributeNS(null, "fill", "white");
   }
   off() {
-    this.element.setAttributeNS(null, "fill", "#3c3c3b");
+    this.element.setAttributeNS(null, "fill", "#02607793");
   }
   instance(): SVGElement {
     return this.element as SVGElement;
@@ -34,7 +35,7 @@ export interface SEGMENTVAR {
 export class SEGMENT7 extends Komponent {
   private nameSpace = "http://www.w3.org/2000/svg";
   public NUMBER = 0;
-  private parent: SVGElement;
+  private paren: SVGElement;
   private numbers = {
     0: ["T", "RT", "RB", "B", "LB", "LT"],
     1: ["RT", "RB"],
@@ -49,23 +50,29 @@ export class SEGMENT7 extends Komponent {
     10: ["T", "LB", "M", "RB", "RT", "B"],
     11: ["LT", "LB", "RB", "RT", "B", "M"],
     12: ["T", "LT", "LB", "B"],
-    13: ["LT", "LB", "RB", "B", "RT", "M"],
+    13: ["LB", "RB", "B", "RT", "M"],
     14: ["T", "LT", "LB", "B", "M"],
     15: ["T", "LT", "LB", "M"],
   };
-  constructor(element: string, type: TOOLTYPE = null, canvasEl: string) {
-    super(element, type, canvasEl);
-    this.parent = document.createElementNS(this.nameSpace, "svg") as SVGElement;
-    this.setAttr(this.parent, {
+  constructor() {
+    super("SEG7", TOOLTYPE.SEG7);
+    this.paren = document.createElementNS(this.nameSpace, "svg") as SVGElement;
+    this.setAttr(this.paren, {
       x: 0,
       y: 0,
       viewBox: "0 0 18.24 25.48",
       width: 54.72,
       height: 76.44,
-      style: "background:#1e1e1e;",
     });
-    this.canvas.appendChild(this.parent);
+    this.setPins(this.Pins);
+    this.setSize({
+      width: 60,
+      height: 80,
+    });
     this.paint();
+    this.numbers[0].forEach((e) => {
+      this.Seg[e].on();
+    });
   }
 
   public Pins = {
@@ -117,9 +124,9 @@ export class SEGMENT7 extends Komponent {
       "d",
       "M6.35,4,5.24,11.37,4,12.43l-.86-1L4.28,3.3a2.64,2.64,0,0,1,.56-1Z"
     );
-    for (const m in this.Seg) this.parent.appendChild(this.Seg[m].instance());
-
-    this.canvas.appendChild(this.parent);
+    for (const m in this.Seg) this.paren.appendChild(this.Seg[m].instance());
+    this.parent.removeChild(this.parent.querySelector("span"));
+    this.parent.appendChild(this.paren);
   }
   p(name: string) {
     return this.Pins[name].state == KUCHLANISH.YUQORI ? 1 : 0;
@@ -127,8 +134,10 @@ export class SEGMENT7 extends Komponent {
   Fire() {
     let bin = `${this.p("D")}${this.p("C")}${this.p("B")}${this.p("A")}`;
     let son = parseInt(bin, 2);
-    console.log(son, bin);
-    console.log(this.numbers[son].join(" "));
+    console.log(son);
+    this.numbers["8"].forEach((e) => {
+      this.Seg[e].off();
+    });
     this.numbers[son].forEach((e: string) => {
       this.Seg[e].on();
     });

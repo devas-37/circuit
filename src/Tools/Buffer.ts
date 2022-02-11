@@ -2,19 +2,22 @@ import { KUCHLANISH, PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 
-export class OR extends Komponent {
+export class Buffer extends Komponent {
   public pins = {
     A: new Pin("A", PINTYPE.KIRISH),
-    B: new Pin("B", PINTYPE.KIRISH),
     C: new Pin("C", PINTYPE.CHIQISH, POSITION.RIGHT),
   };
+  size = {
+    width: 90,
+    height: 32,
+  };
   constructor() {
-    super("OR", TOOLTYPE.OR);
+    super("BUFFER", TOOLTYPE.BUFFER);
     this.setPins(this.pins);
   }
 
   Fire() {
-    if (this.pins.A.state | this.pins.B.state) {
+    if (this.pins.A.state & this.pins.C.state) {
       this.pins.C.Write(KUCHLANISH.YUQORI);
     } else {
       this.pins.C.Write(KUCHLANISH.PAST);

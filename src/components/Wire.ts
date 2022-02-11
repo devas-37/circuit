@@ -1,18 +1,22 @@
-import { WIRESTATE } from "./Enums"
+import { WIRESTATE } from "./Enums";
 
-export class Wire{
-    name:string=''
-    state:WIRESTATE=WIRESTATE.ON
-    
-    constructor(name:string){
-        this.name=name
-    }
-    
-    setState(state:WIRESTATE=WIRESTATE.OFF){
-        this.state=state
-    }
+import { v4 as uuid } from "uuid";
 
-    getState(){
-        return this.state
-    }
+export class Wire {
+  name: string = "";
+  state: WIRESTATE = WIRESTATE.ON;
+  wireId: string;
+  wirePath: SVGElement;
+
+  constructor() {
+    this.wireId = uuid();
+  }
+
+  setState(state: WIRESTATE = WIRESTATE.OFF) {
+    this.state = state;
+  }
+
+  getState() {
+    return this.state;
+  }
 }
