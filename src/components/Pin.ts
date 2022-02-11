@@ -33,6 +33,9 @@ export class Pin {
   public position: POSITION;
   public pinContainer: HTMLElement;
   public parentElement: Komponent;
+  public onBeginConnect: (e: MouseEvent, a: string) => {} | void;
+  public onMoveConnect: (e: MouseEvent) => {} | void;
+  public onEndConnect: (e: MouseEvent) => {} | void;
   pinId: string;
   constructor(
     name: string,
@@ -48,19 +51,18 @@ export class Pin {
     this.pinContainer.classList.add("elpin");
     this.pinContainer.onmousedown = (e) => {
       e.stopPropagation();
+      this.onBeginConnect(e, this.name);
       let el = e.target as HTMLDivElement;
-      let ref = this.mouseMove.bind(this);
       let refUp = (e: MouseEvent) => {
-        console.log((e.target as HTMLElement).className);
-        if ((e.target as HTMLElement).className !== "elpin") {
-        }
-        document.removeEventListener("mousemove", ref);
+        document.removeEventListener("mousemove", this.onMoveConnect);
         document.removeEventListener("mouseup", refUp);
       };
-      document.addEventListener("mousemove", ref);
+      document.addEventListener("mousemove", this.onMoveConnect);
       document.addEventListener("mouseup", refUp);
     };
-    this.pinContainer.onmouseup = () => {};
+    this.pinContainer.onmouseup = (e: MouseEvent) => {
+      this.onEndConnect(e);
+    };
   }
 
   getPos() {

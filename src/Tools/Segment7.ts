@@ -47,8 +47,8 @@ export class SEGMENT7 extends Komponent {
     7: ["RT", "RB", "T"],
     8: ["T", "LT", "LB", "M", "RB", "B", "RT"],
     9: ["T", "LT", "M", "RB", "B", "RT"],
-    10: ["T", "LB", "M", "RB", "RT", "B"],
-    11: ["LT", "LB", "RB", "RT", "B", "M"],
+    10: ["T", "LB", "M", "RB", "RT", "LT"],
+    11: ["LT", "LB", "RB", "B", "M"],
     12: ["T", "LT", "LB", "B"],
     13: ["LB", "RB", "B", "RT", "M"],
     14: ["T", "LT", "LB", "B", "M"],
@@ -64,28 +64,31 @@ export class SEGMENT7 extends Komponent {
       width: 54.72,
       height: 76.44,
     });
-    this.setPins(this.Pins);
+
+    this.setPins({
+      A: new Pin("A", PINTYPE.KIRISH),
+      B: new Pin("B", PINTYPE.KIRISH),
+      C: new Pin("C", PINTYPE.KIRISH),
+      D: new Pin("D", PINTYPE.KIRISH),
+    });
+
     this.setSize({
       width: 60,
       height: 80,
     });
+
     this.paint();
     this.numbers[0].forEach((e) => {
       this.Seg[e].on();
     });
   }
 
-  public Pins = {
-    A: new Pin("A", PINTYPE.KIRISH),
-    B: new Pin("B", PINTYPE.KIRISH),
-    C: new Pin("C", PINTYPE.KIRISH),
-    D: new Pin("D", PINTYPE.KIRISH),
-  };
   setAttr(el: SVGElement, val: object) {
     for (const m in val) {
       el.setAttributeNS(null, m, val[m]);
     }
   }
+
   public Seg: SEGMENTVAR = {
     LB: new SEGMENT("path"),
     LT: new SEGMENT("path"),
@@ -95,6 +98,7 @@ export class SEGMENT7 extends Komponent {
     RB: new SEGMENT("path"),
     M: new SEGMENT("polygon"),
   };
+
   private paint() {
     this.Seg.LB.attr(
       "d",

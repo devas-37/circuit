@@ -17,6 +17,8 @@ export class Komponent {
   move: boolean = false;
   point: { x: number; y: number; left: number; top: number };
 
+  public Pins: { [key: string]: Pin };
+
   constructor(el: string, type: TOOLTYPE = null) {
     this.uuid = uuid();
     if (type) this.type = type;
@@ -47,7 +49,7 @@ export class Komponent {
   parentMouseDown(e: MouseEvent) {
     e.stopPropagation();
     this.point = {
-      x: e.clientX,
+      x: e.clientX + 250,
       y: e.clientY,
       left: this.parent.getBoundingClientRect().left,
       top: this.parent.getBoundingClientRect().top,
@@ -72,6 +74,7 @@ export class Komponent {
   }
 
   setPins(pins: { [key: string]: Pin }) {
+    this.Pins = pins;
     Object.keys(pins).map((pin) => {
       pins[pin].setParent(this);
       switch (pins[pin].position) {
@@ -99,6 +102,7 @@ export class Komponent {
     this.parent.style.width = size.width + "px";
     this.parent.style.height = size.height + "px";
   }
+
   elt(name: string, ns: boolean = false): Element {
     return ns
       ? document.createElementNS("http://www.w3.org/2000/svg", name)

@@ -5,13 +5,13 @@ import { Pin } from "../components/Pin";
 export class NOT extends Komponent {
   constructor() {
     super("NOT", TOOLTYPE.NOT);
-    this.setPins(this.Pins);
+    this.setPins({
+      A: new Pin("A", PINTYPE.KIRISH),
+      B: new Pin("B", PINTYPE.CHIQISH, POSITION.RIGHT),
+    });
     this.setSize({ width: 60, height: 30 });
   }
-  public Pins = {
-    A: new Pin("A", PINTYPE.KIRISH),
-    B: new Pin("B", PINTYPE.CHIQISH, POSITION.RIGHT),
-  };
+
   Fire() {
     this.Pins.B.Write(
       this.Pins.A.state != 0 ? KUCHLANISH.PAST : KUCHLANISH.YUQORI

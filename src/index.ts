@@ -10,8 +10,11 @@ import {
   Button,
   Switch,
 } from "./Tools/index";
-let btn = new Button();
+let and = new AND();
 let seg = new SEGMENT7();
 let sw = new Switch();
-btn.Pins["A"].addPin(seg, seg.Pins.A);
-sw.Pins["A"].addPin(seg, seg.Pins.B);
+let sw1 = new Switch();
+
+sw.Pins["A"].addPin(and, and.Pins.A);
+sw1.Pins["A"].addPin(and, and.Pins.B);
+and.Pins.C.addPin(seg, seg.Pins.A);
