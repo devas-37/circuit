@@ -13,6 +13,7 @@ import { XOR } from "../Tools/Xor";
 import { AND } from "../Tools/And";
 import { OR } from "../Tools/Or";
 import { SEGMENT7 } from "../Tools/Segment7";
+import { PinPayload } from "./Interfaces";
 
 interface CHILD {
   komponent: Komponent;
@@ -33,9 +34,9 @@ export class Pin {
   public position: POSITION;
   public pinContainer: HTMLElement;
   public parentElement: Komponent;
-  public onBeginConnect: (e: MouseEvent, a: string) => {} | void;
-  public onMoveConnect: (e: MouseEvent) => {} | void;
-  public onEndConnect: (e: MouseEvent) => {} | void;
+  public onBeginConnect: (e: MouseEvent, payload: PinPayload) => {} | void;
+  public onMoveConnect: (e: MouseEvent, payload: PinPayload) => {} | void;
+  public onEndConnect: (e: MouseEvent, payload: PinPayload) => {} | void;
   pinId: string;
   constructor(
     name: string,
@@ -49,32 +50,66 @@ export class Pin {
     this.position = position;
     this.pinContainer = document.createElement("div");
     this.pinContainer.classList.add("elpin");
+
     this.pinContainer.onmousedown = (e) => {
       e.stopPropagation();
-      this.onBeginConnect(e, this.name);
+      this.onBeginConnect(e, {
+        pinType: this.PinType,
+        name: this.name,
+        pos: this.getPos(),
+        pin: this,
+      });
+
+      let ref = (e: MouseEvent) => {
+        this.onMoveConnect(e, {
+          pinType: this.PinType,
+          name: this.name,
+          pos: this.getPos(),
+        });
+      };
+
       let el = e.target as HTMLDivElement;
       let refUp = (e: MouseEvent) => {
-        document.removeEventListener("mousemove", this.onMoveConnect);
+        document.removeEventListener("mousemove", ref);
         document.removeEventListener("mouseup", refUp);
       };
-      document.addEventListener("mousemove", this.onMoveConnect);
+      document.addEventListener("mousemove", ref);
       document.addEventListener("mouseup", refUp);
     };
+
     this.pinContainer.onmouseup = (e: MouseEvent) => {
-      this.onEndConnect(e);
+      this.onEndConnect(e, {
+        pinType: this.PinType,
+        name: this.name,
+        pos: this.getPos(),
+        pin: this,
+      });
     };
   }
 
   getPos() {
     let pos = this.pinContainer.getBoundingClientRect();
     return {
-      x: pos.left + pos.width / 2,
+      x: pos.left + pos.width / 2 - 250,
       y: pos.top + pos.height / 2,
     };
   }
-  mouseMove(e: MouseEvent) {}
+
+  updateWire() {
+    this.Wires.forEach((wire) => {
+      if (this.PinType == PINTYPE.CHIQISH) {
+        wire.setStartPos(this.getPos());
+      } else if (this.PinType == PINTYPE.KIRISH) {
+        wire.setStopPos(this.getPos());
+      }
+    });
+  }
+
   setParent(parent: Komponent) {
     this.parentElement = parent;
+  }
+  isEmptyWire() {
+    return Boolean(this.Wires.length);
   }
   Write(kuchlanish: KUCHLANISH) {
     if (kuchlanish) {

@@ -1,4 +1,5 @@
 import { TOOLTYPE, PINTYPE, KUCHLANISH } from "./components/Enums";
+import { Komponent } from "./components/Komponent";
 import {
   OR,
   AND,
@@ -10,11 +11,8 @@ import {
   Button,
   Switch,
 } from "./Tools/index";
-let and = new AND();
-let seg = new SEGMENT7();
-let sw = new Switch();
-let sw1 = new Switch();
-
-sw.Pins["A"].addPin(and, and.Pins.A);
-sw1.Pins["A"].addPin(and, and.Pins.B);
-and.Pins.C.addPin(seg, seg.Pins.A);
+let elements: Komponent[] = [];
+setTimeout(() => {
+  elements.push(new Switch());
+  elements.push(new SEGMENT7());
+}, 1);

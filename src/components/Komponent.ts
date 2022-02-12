@@ -1,9 +1,11 @@
 import { TOOLTYPE, PINTYPE, POSITION, STYLES } from "./Enums";
 import { Pin } from "./Pin";
 import { v4 as uuid } from "uuid";
+import { PinPayload } from "./Interfaces";
+import { Wire } from "./Wire";
 type Element = HTMLElement | SVGElement;
 let m = 5;
-
+let wireBuffer: Wire;
 export class Komponent {
   element: string = "";
   public type: TOOLTYPE = null;
@@ -16,9 +18,8 @@ export class Komponent {
   uuid: string;
   move: boolean = false;
   point: { x: number; y: number; left: number; top: number };
-
   public Pins: { [key: string]: Pin };
-
+  pinKeys: string[];
   constructor(el: string, type: TOOLTYPE = null) {
     this.uuid = uuid();
     if (type) this.type = type;
@@ -57,13 +58,36 @@ export class Komponent {
     this.move = true;
     let ref = this.rootMouseMove.bind(this);
     document.addEventListener("mousemove", ref, true);
-
     document.onmouseup = () => {
       this.move = false;
       document.removeEventListener("mousemove", ref, true);
     };
   }
 
+  beginConnect(e: MouseEvent, payload: PinPayload) {
+    wireBuffer = new Wire();
+    if (payload.pinType == PINTYPE.CHIQISH) {
+      wireBuffer.setStartPos(payload.pos);
+    } else if (payload.pinType == PINTYPE.KIRISH) {
+      wireBuffer.setStopPos(payload.pos);
+    }
+    payload.pin.addWire(wireBuffer);
+  }
+  endConnect(e: MouseEvent, payload: PinPayload) {
+    if (payload.pinType == PINTYPE.CHIQISH) {
+      wireBuffer.setStartPos(payload.pos);
+    } else if (payload.pinType == PINTYPE.KIRISH) {
+      wireBuffer.setStopPos(payload.pos);
+    }
+    payload.pin.addWire(wireBuffer);
+  }
+  moveConnect(e: MouseEvent, payload: PinPayload) {
+    if (payload.pinType == PINTYPE.CHIQISH) {
+      wireBuffer.setStopPos({ x: e.clientX - 250, y: e.clientY });
+    } else if (payload.pinType == PINTYPE.KIRISH) {
+      wireBuffer.setStartPos({ x: e.clientX - 250, y: e.clientY });
+    }
+  }
   rootMouseMove(e: MouseEvent) {
     if (this.move) {
       this.parent.style.top =
@@ -71,12 +95,18 @@ export class Komponent {
       this.parent.style.left =
         this.point.left + (e.clientX - this.point.x) + "px";
     }
+    this.pinKeys.forEach((key) => {
+      this.Pins[key].updateWire();
+    });
   }
-
   setPins(pins: { [key: string]: Pin }) {
     this.Pins = pins;
+    this.pinKeys = Object.keys(pins);
     Object.keys(pins).map((pin) => {
       pins[pin].setParent(this);
+      pins[pin].onBeginConnect = this.beginConnect.bind(this);
+      pins[pin].onEndConnect = this.endConnect.bind(this);
+      pins[pin].onMoveConnect = this.moveConnect.bind(this);
       switch (pins[pin].position) {
         case POSITION.LEFT: {
           this.leftPins.appendChild(pins[pin].pinContainer);
