@@ -1,11 +1,8 @@
 import { WIRESTATE } from "./Enums";
 
 import { v4 as uuid } from "uuid";
+import { IPoint } from "./Interfaces";
 
-interface IPoint {
-  x: number;
-  y: number;
-}
 export class Wire {
   name: string = "";
   state: WIRESTATE = WIRESTATE.ON;
@@ -24,7 +21,6 @@ export class Wire {
     this.pathContainer.classList.add("svg-wire");
     this.path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     this.path.classList.add("svg-path");
-
     this.pathContainer.appendChild(this.path);
     document.getElementById("root").appendChild(this.pathContainer);
   }
@@ -51,7 +47,7 @@ export class Wire {
    *
    * @param pos Pathning boshlang'ich pozitsiyasi
    */
-  setStartPos(pos: { x: number; y: number }) {
+  setStartPos(pos: IPoint) {
     this.startPos = pos;
     this.updatePath();
   }
@@ -59,7 +55,7 @@ export class Wire {
    *
    * @param pos Pathning tugash pozitsiyasi
    */
-  setStopPos(pos: { x: number; y: number }) {
+  setStopPos(pos: IPoint) {
     this.stopPos = pos;
     this.updatePath();
   }

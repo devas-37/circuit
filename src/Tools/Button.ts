@@ -4,7 +4,7 @@ import { Pin } from "../components/Pin";
 
 export class Button extends Komponent {
   Size = {
-    width: 37,
+    width: 40,
     height: 32,
   };
   Location = {

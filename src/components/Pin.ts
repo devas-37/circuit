@@ -50,14 +50,12 @@ export class Pin {
     this.position = position;
     this.pinContainer = document.createElement("div");
     this.pinContainer.classList.add("elpin");
-
     this.pinContainer.onmousedown = (e) => {
       e.stopPropagation();
       this.onBeginConnect(e, {
         pinType: this.PinType,
         name: this.name,
         pos: this.getPos(),
-        pin: this,
       });
 
       let ref = (e: MouseEvent) => {
@@ -82,7 +80,6 @@ export class Pin {
         pinType: this.PinType,
         name: this.name,
         pos: this.getPos(),
-        pin: this,
       });
     };
   }

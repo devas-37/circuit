@@ -10,9 +10,8 @@ import {
   TriState,
   Button,
   Switch,
+  Gerts,
+  LEDArray,
 } from "./Tools/index";
-let elements: Komponent[] = [];
-setTimeout(() => {
-  elements.push(new Switch());
-  elements.push(new SEGMENT7());
-}, 1);
+let sw = new Switch();
+let seg = new LEDArray();

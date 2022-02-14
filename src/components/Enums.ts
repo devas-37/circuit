@@ -41,6 +41,8 @@ export enum TOOLTYPE {
   TRISTATE = "3st",
   BUTTON = "btn",
   SWITCH = "sw",
+  GERTS = "hz",
+  LEDARRAY = "larr",
 }
 
 export enum COLORS {

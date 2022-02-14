@@ -1,4 +1,4 @@
-
+const path = require('path')
 module.exports = {
     mode: "development",
     devtool: "inline-source-map",
@@ -10,8 +10,9 @@ module.exports = {
         gui: './src/pp.ts'
     },
     output: {
-        path: __dirname + '/dist',
-        filename: '[name].js'
+
+        filename: '[name].js',
+        path: path.resolve(__dirname, 'dist'),
     },
     module: {
         rules: [{

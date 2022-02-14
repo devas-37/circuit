@@ -6,6 +6,8 @@ import { Wire } from "./Wire";
 type Element = HTMLElement | SVGElement;
 let m = 5;
 let wireBuffer: Wire;
+let komponentBufer: Komponent;
+let pinNameBufer: string;
 export class Komponent {
   element: string = "";
   public type: TOOLTYPE = null;
@@ -26,7 +28,6 @@ export class Komponent {
     this.element = el;
     this.canvas = document.getElementById("root");
     this.parent = this.elt("div");
-    this;
     this.parent.onmousedown = this.parentMouseDown.bind(this);
     this.parent.classList.add(STYLES.AND, STYLES.BORDER, STYLES.FLEX);
     let textNode = this.elt("span");
@@ -71,15 +72,25 @@ export class Komponent {
     } else if (payload.pinType == PINTYPE.KIRISH) {
       wireBuffer.setStopPos(payload.pos);
     }
-    payload.pin.addWire(wireBuffer);
+    komponentBufer = this;
+    pinNameBufer = payload.name;
+    this.Pins[payload.name].addWire(wireBuffer);
   }
   endConnect(e: MouseEvent, payload: PinPayload) {
+    console.log(payload);
+    console.log(komponentBufer);
     if (payload.pinType == PINTYPE.CHIQISH) {
       wireBuffer.setStartPos(payload.pos);
+      this.Pins[payload.name].addPin(
+        komponentBufer,
+        komponentBufer.Pins[pinNameBufer]
+      );
     } else if (payload.pinType == PINTYPE.KIRISH) {
       wireBuffer.setStopPos(payload.pos);
+      console.log(komponentBufer.Pins);
+      komponentBufer.Pins[pinNameBufer].addPin(this, this.Pins[payload.name]);
     }
-    payload.pin.addWire(wireBuffer);
+    this.Pins[payload.name].addWire(wireBuffer);
   }
   moveConnect(e: MouseEvent, payload: PinPayload) {
     if (payload.pinType == PINTYPE.CHIQISH) {

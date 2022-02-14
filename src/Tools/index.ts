@@ -8,7 +8,11 @@ import { Buffer } from "./Buffer";
 import { TriState } from "./TriState";
 import { Switch } from "./Switch";
 import { Button } from "./Button";
+import { Gerts } from "./Gerts";
+import { LEDArray } from "./LEDArray";
 export {
+  LEDArray,
+  Gerts,
   OR,
   XOR,
   TriState,
