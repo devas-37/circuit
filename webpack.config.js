@@ -1,7 +1,8 @@
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 module.exports = {
     mode: "development",
-    devtool: "inline-source-map",
     watchOptions: {
         ignored: /node_modules/
     },
@@ -10,18 +11,61 @@ module.exports = {
         gui: './src/pp.ts'
     },
     output: {
-
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
     },
     module: {
-        rules: [{
-            test: /\.ts[x]?$/,
-            use: "ts-loader",
-            exclude: /node_modules/,
-        }]
+        rules: [
+            {
+                test: /\.ttf$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'assets/fonts'
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.svg$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'assets/svg'
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.ts$/,
+                use: "ts-loader",
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.sass$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader'
+                ],
+            },
+            {
+                test: /\.(svg)$/,
+                use: ['file-loader'],
+            }
+        ]
     },
     resolve: {
-        extensions: [".ts"]
+        extensions: ['.ts']
     },
+    plugins: [new MiniCssExtractPlugin(), new HtmlWebpackPlugin({
+        title: 'Circuit',
+        inject: 'head',
+        template: './src/index.html'
+    })]
+
 };
