@@ -13,7 +13,8 @@ import {
   Gerts,
   LEDArray,
 } from "./Tools/index";
-import "./assets/svg/AND.svg";
 import "./styles/index.sass";
+import "./styles/gui.sass";
+import "./assets/svg/hz.svg";
 let sw = new Switch();
 let seg = new LEDArray();

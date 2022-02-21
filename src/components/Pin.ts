@@ -14,6 +14,7 @@ import { AND } from "../Tools/And";
 import { OR } from "../Tools/Or";
 import { SEGMENT7 } from "../Tools/Segment7";
 import { PinPayload } from "./Interfaces";
+import { createEl } from "../utils/index";
 
 interface CHILD {
   komponent: Komponent;
@@ -48,7 +49,7 @@ export class Pin {
     this.name = name;
     this.parentElement;
     this.position = position;
-    this.pinContainer = document.createElement("div");
+    this.pinContainer = createEl("div");
     this.pinContainer.classList.add("elpin");
     this.pinContainer.onmousedown = (e) => {
       e.stopPropagation();

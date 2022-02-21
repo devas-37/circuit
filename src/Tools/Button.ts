@@ -1,6 +1,7 @@
 import { KUCHLANISH, PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
+import { createEl } from "../utils/index";
 
 export class Button extends Komponent {
   Size = {
@@ -17,7 +18,7 @@ export class Button extends Komponent {
       A: new Pin("A", PINTYPE.CHIQISH, POSITION.RIGHT),
     });
     this.setSize(this.Size);
-    let btn = this.elt("div");
+    let btn = createEl("div");
     btn.classList.add("buttonELBtn");
     this.parent.style.left = this.Location.left + "px";
     this.parent.style.top = this.Location.top + "px";

@@ -7,6 +7,7 @@ import {
 } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
+import { createEl } from "../utils/index";
 
 export class Switch extends Komponent {
   Size = {
@@ -20,9 +21,9 @@ export class Switch extends Komponent {
       A: new Pin("A", PINTYPE.CHIQISH, POSITION.RIGHT),
     });
     this.setSize(this.Size);
-    let swContainer = this.elt("div");
+    let swContainer = createEl("div");
     swContainer.classList.add("actionBtn");
-    let actionContainer = this.elt("div");
+    let actionContainer = createEl("div");
     actionContainer.appendChild(swContainer);
     actionContainer.classList.add("actionContainer");
     this.parent.appendChild(actionContainer);

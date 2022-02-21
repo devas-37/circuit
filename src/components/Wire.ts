@@ -2,6 +2,7 @@ import { WIRESTATE } from "./Enums";
 
 import { v4 as uuid } from "uuid";
 import { IPoint } from "./Interfaces";
+import { createSVG, getId } from "../utils/index";
 
 export class Wire {
   name: string = "";
@@ -10,19 +11,16 @@ export class Wire {
   wirePath: SVGElement;
   startPos: IPoint = { x: null, y: null };
   stopPos: IPoint = { x: null, y: null };
-  path: SVGElement;
-  pathContainer: SVGElement;
+  path: SVGElement | HTMLElement;
+  pathContainer: SVGElement | HTMLElement;
   constructor() {
     this.wireId = uuid();
-    this.pathContainer = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "svg"
-    );
+    this.pathContainer = createSVG("svg");
     this.pathContainer.classList.add("svg-wire");
-    this.path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    this.path = createSVG("path");
     this.path.classList.add("svg-path");
     this.pathContainer.appendChild(this.path);
-    document.getElementById("root").appendChild(this.pathContainer);
+    getId("root").appendChild(this.pathContainer);
   }
 
   generatePathData(start: IPoint, stop: IPoint) {

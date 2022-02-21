@@ -1,6 +1,7 @@
 import { KUCHLANISH, PINTYPE, TOOLTYPE } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
+import { createSVG, setAttr } from "../utils/index";
 class SEGMENT {
   private element: SVGElement;
   private q: string = "http://www.w3.org/2000/svg";
@@ -33,9 +34,8 @@ export interface SEGMENTVAR {
   M?: SEGMENT;
 }
 export class SEGMENT7 extends Komponent {
-  private nameSpace = "http://www.w3.org/2000/svg";
   public NUMBER = 0;
-  private paren: SVGElement;
+  private paren: SVGElement | HTMLElement;
   private numbers = {
     0: ["T", "RT", "RB", "B", "LB", "LT"],
     1: ["RT", "RB"],
@@ -56,8 +56,8 @@ export class SEGMENT7 extends Komponent {
   };
   constructor() {
     super("SEG7", TOOLTYPE.SEG7);
-    this.paren = document.createElementNS(this.nameSpace, "svg") as SVGElement;
-    this.setAttr(this.paren, {
+    this.paren = createSVG("svg");
+    setAttr(this.paren, {
       x: 0,
       y: 0,
       viewBox: "0 0 18.24 25.48",
@@ -81,12 +81,6 @@ export class SEGMENT7 extends Komponent {
     this.numbers[0].forEach((e) => {
       this.Seg[e].on();
     });
-  }
-
-  setAttr(el: SVGElement, val: object) {
-    for (const m in val) {
-      el.setAttributeNS(null, m, val[m]);
-    }
   }
 
   public Seg: SEGMENTVAR = {

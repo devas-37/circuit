@@ -7,7 +7,8 @@
     "scripts": {
         "start": "webpack",
         "watch": "webpack -w",
-        "build": "webpack --mode=production --devtool=none"
+        "build": "webpack --mode=production --devtool=none",
+        "serve": "webpack serve"
     },
     "dependencies": {
         "uuid": "^8.3.2"

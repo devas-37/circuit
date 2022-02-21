@@ -13,6 +13,7 @@ module.exports = {
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
+        clean: true
     },
     module: {
         rules: [
@@ -34,7 +35,7 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: '[name].[ext]',
+                            name: 'element-[name].[ext]',
                             outputPath: 'assets/svg'
                         }
                     }
@@ -52,15 +53,11 @@ module.exports = {
                     'css-loader',
                     'sass-loader'
                 ],
-            },
-            {
-                test: /\.(svg)$/,
-                use: ['file-loader'],
             }
         ]
     },
     resolve: {
-        extensions: ['.ts']
+        extensions: ['.ts', '.svg', '.sass']
     },
     plugins: [new MiniCssExtractPlugin(), new HtmlWebpackPlugin({
         title: 'Circuit',

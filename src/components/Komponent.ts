@@ -3,6 +3,7 @@ import { Pin } from "./Pin";
 import { v4 as uuid } from "uuid";
 import { PinPayload } from "./Interfaces";
 import { Wire } from "./Wire";
+import { createEl, getId } from "../utils/index";
 type Element = HTMLElement | SVGElement;
 let m = 5;
 let wireBuffer: Wire;
@@ -26,17 +27,17 @@ export class Komponent {
     this.uuid = uuid();
     if (type) this.type = type;
     this.element = el;
-    this.canvas = document.getElementById("root");
-    this.parent = this.elt("div");
+    this.canvas = getId("root");
+    this.parent = createEl("div");
     this.parent.onmousedown = this.parentMouseDown.bind(this);
     this.parent.classList.add(STYLES.AND, STYLES.BORDER, STYLES.FLEX);
-    let textNode = this.elt("span");
+    let textNode = createEl("div");
     textNode.innerHTML = this.element;
     this.parent.appendChild(textNode);
-    this.leftPins = this.elt("div");
-    this.rightPins = this.elt("div");
-    this.topPins = this.elt("div");
-    this.bottomPins = this.elt("div");
+    this.leftPins = createEl("div");
+    this.rightPins = createEl("div");
+    this.topPins = createEl("div");
+    this.bottomPins = createEl("div");
     this.topPins.classList.add("v-flex", "pinC", "pinCTop");
     this.rightPins.classList.add("v-flex", "pinC", "pinCRight");
     this.leftPins.classList.add("v-flex", "pinC", "pinCLeft");
@@ -142,12 +143,6 @@ export class Komponent {
   setSize(size: { width: number; height: number }) {
     this.parent.style.width = size.width + "px";
     this.parent.style.height = size.height + "px";
-  }
-
-  elt(name: string, ns: boolean = false): Element {
-    return ns
-      ? document.createElementNS("http://www.w3.org/2000/svg", name)
-      : document.createElement(name);
   }
 
   render() {}
