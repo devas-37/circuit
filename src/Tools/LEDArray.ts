@@ -2,6 +2,7 @@ import { PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
 import { ILed } from "../components/Interfaces";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
+import { createEl } from "../utils/index";
 
 export class LEDArray extends Komponent {
   letter1 = "ABCDEF".split("");
@@ -25,13 +26,13 @@ export class LEDArray extends Komponent {
       K: new Pin("K", PINTYPE.KIRISH, POSITION.LEFT),
       L: new Pin("L", PINTYPE.KIRISH, POSITION.LEFT),
     });
-    let ledContainer = document.createElement("div");
+    let ledContainer = createEl("div");
     ledContainer.classList.add("led-container");
 
     this.letter1.forEach((l) => {
-      let container = document.createElement("div");
+      let container = createEl("div");
       this.letter2.forEach((k) => {
-        let div = document.createElement("div");
+        let div = createEl("div");
         Object.assign(this.leds, {
           [l + k]: div,
         });
@@ -39,7 +40,6 @@ export class LEDArray extends Komponent {
       });
       ledContainer.appendChild(container);
     });
-
     this.setSize({
       width: 146,
       height: 151,

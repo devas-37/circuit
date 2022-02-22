@@ -5,9 +5,26 @@ body
     margin: 0
 
 .toolbar
-    width: 250px
+    user-select: none
+    width: 270px
     height: 100vh
-    background: red
-
+    background: white
+    .titleBar
+        height: 33px
+        display: flex
+        justify-content: space-between
+        align-items: center
+        color: white
+        background: #1B4752
+        padding: 0 12px
+    .tools
+        margin: 12px 0
+        padding: 0 12px
+        .titlebar
+            display: flex
+            align-items: center
+            justify-content: space-between
+            & svg
+                cursor: pointer
 #root
     position: relative

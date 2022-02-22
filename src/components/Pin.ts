@@ -88,7 +88,7 @@ export class Pin {
   getPos() {
     let pos = this.pinContainer.getBoundingClientRect();
     return {
-      x: pos.left + pos.width / 2 - 250,
+      x: pos.left + pos.width / 2 - 270,
       y: pos.top + pos.height / 2,
     };
   }

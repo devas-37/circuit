@@ -2,7 +2,8 @@ import { WIRESTATE } from "./Enums";
 
 import { v4 as uuid } from "uuid";
 import { IPoint } from "./Interfaces";
-import { createSVG, getId } from "../utils/index";
+import { createSVG, generatePathData, getId } from "../utils/index";
+import { Connnector } from "./Connector";
 
 export class Wire {
   name: string = "";
@@ -13,6 +14,8 @@ export class Wire {
   stopPos: IPoint = { x: null, y: null };
   path: SVGElement | HTMLElement;
   pathContainer: SVGElement | HTMLElement;
+  points: Connnector[] = [];
+  push: boolean = false;
   constructor() {
     this.wireId = uuid();
     this.pathContainer = createSVG("svg");
@@ -21,22 +24,44 @@ export class Wire {
     this.path.classList.add("svg-path");
     this.pathContainer.appendChild(this.path);
     getId("root").appendChild(this.pathContainer);
+    let move = this.mouseMove.bind(this);
+    let v = this;
+    let remove = () => {
+      v.push = false;
+      document.removeEventListener("mousemove", move);
+      document.removeEventListener("mouseup", remove);
+    };
+    this.path.addEventListener("mousedown", () => {
+      document.addEventListener("mousemove", move);
+      document.addEventListener("mouseup", remove);
+    });
+    this.path.addEventListener("mouseout", () => {
+      remove();
+    });
   }
 
-  generatePathData(start: IPoint, stop: IPoint) {
-    return `M${start.x},${start.y} C${start.x + (stop.x - start.x) / 2},${
-      start.y
-    } ${stop.x - (stop.x - start.x) / 2},${stop.y} ${stop.x}, ${stop.y}`;
+  mouseMove(e: MouseEvent) {
+    if (!this.push) {
+      if (!this.points.length) {
+        this.pathContainer.removeChild(this.path);
+        this.path = null;
+      }
+      this.points.push(new Connnector({ x: e.clientX, y: e.clientY }, this));
+
+      this.push = true;
+    }
   }
+
   updatePath() {
     this.path.setAttribute(
       "d",
-      this.generatePathData(
+      generatePathData(
         this.startPos.x ? this.startPos : this.stopPos,
         this.stopPos.x ? this.stopPos : this.startPos
       )
     );
   }
+
   /**
    *  Pathni qismlarga bo'lish uchun
    */

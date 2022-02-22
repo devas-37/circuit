@@ -55,7 +55,7 @@ export class SEGMENT7 extends Komponent {
     15: ["T", "LT", "LB", "M"],
   };
   constructor() {
-    super("SEG7", TOOLTYPE.SEG7);
+    super("", TOOLTYPE.SEG7);
     this.paren = createSVG("svg");
     setAttr(this.paren, {
       x: 0,
@@ -123,7 +123,7 @@ export class SEGMENT7 extends Komponent {
       "M6.35,4,5.24,11.37,4,12.43l-.86-1L4.28,3.3a2.64,2.64,0,0,1,.56-1Z"
     );
     for (const m in this.Seg) this.paren.appendChild(this.Seg[m].instance());
-    this.parent.removeChild(this.parent.querySelector("span"));
+    // this.parent.removeChild(this.parent.querySelector("span"));
     this.parent.appendChild(this.paren);
   }
   p(name: string) {

@@ -1,7 +1,7 @@
 import { TOOLTYPE, PINTYPE, POSITION, STYLES } from "./Enums";
 import { Pin } from "./Pin";
 import { v4 as uuid } from "uuid";
-import { PinPayload } from "./Interfaces";
+import { IPoint, PinPayload } from "./Interfaces";
 import { Wire } from "./Wire";
 import { createEl, getId } from "../utils/index";
 type Element = HTMLElement | SVGElement;
@@ -52,7 +52,7 @@ export class Komponent {
   parentMouseDown(e: MouseEvent) {
     e.stopPropagation();
     this.point = {
-      x: e.clientX + 250,
+      x: e.clientX + 270,
       y: e.clientY,
       left: this.parent.getBoundingClientRect().left,
       top: this.parent.getBoundingClientRect().top,
@@ -78,26 +78,27 @@ export class Komponent {
     this.Pins[payload.name].addWire(wireBuffer);
   }
   endConnect(e: MouseEvent, payload: PinPayload) {
-    console.log(payload);
-    console.log(komponentBufer);
     if (payload.pinType == PINTYPE.CHIQISH) {
       wireBuffer.setStartPos(payload.pos);
       this.Pins[payload.name].addPin(
         komponentBufer,
         komponentBufer.Pins[pinNameBufer]
       );
+      komponentBufer.Pins[pinNameBufer].Write(this.Pins[payload.name].state);
+      komponentBufer.Fire();
     } else if (payload.pinType == PINTYPE.KIRISH) {
       wireBuffer.setStopPos(payload.pos);
-      console.log(komponentBufer.Pins);
       komponentBufer.Pins[pinNameBufer].addPin(this, this.Pins[payload.name]);
+      this.Pins[payload.name].Write(komponentBufer.Pins[pinNameBufer].state);
+      this.Fire();
     }
     this.Pins[payload.name].addWire(wireBuffer);
   }
   moveConnect(e: MouseEvent, payload: PinPayload) {
     if (payload.pinType == PINTYPE.CHIQISH) {
-      wireBuffer.setStopPos({ x: e.clientX - 250, y: e.clientY });
+      wireBuffer.setStopPos({ x: e.clientX - 270, y: e.clientY });
     } else if (payload.pinType == PINTYPE.KIRISH) {
-      wireBuffer.setStartPos({ x: e.clientX - 250, y: e.clientY });
+      wireBuffer.setStartPos({ x: e.clientX - 270, y: e.clientY });
     }
   }
   rootMouseMove(e: MouseEvent) {
@@ -144,7 +145,10 @@ export class Komponent {
     this.parent.style.width = size.width + "px";
     this.parent.style.height = size.height + "px";
   }
-
+  setPos(pos: IPoint) {
+    this.parent.style.left = pos.x + "px";
+    this.parent.style.top = pos.y + "px";
+  }
   render() {}
   Fire() {
     console.log("Fire on komponent bilan fires");
