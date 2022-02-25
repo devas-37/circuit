@@ -9,6 +9,7 @@ export class NOT extends Komponent {
       A: new Pin("A", PINTYPE.KIRISH),
       B: new Pin("B", PINTYPE.CHIQISH, POSITION.RIGHT),
     });
+    this.Pins["B"].Write(KUCHLANISH.YUQORI);
     this.setSize({ width: 60, height: 30 });
   }
 

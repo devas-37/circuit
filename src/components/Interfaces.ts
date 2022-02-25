@@ -1,3 +1,4 @@
+import { Connnector } from "./Connector";
 import { PINTYPE } from "./Enums";
 import { Komponent } from "./Komponent";
 import { Pin } from "./Pin";
@@ -25,4 +26,17 @@ export interface PinPayload {
     x: number;
     y: number;
   };
+}
+export interface IConnector {
+  [key: string]: {
+    point?: IPoint;
+    path1?: SVGElement;
+    path2?: SVGElement;
+    circle?: SVGElement;
+  };
+}
+
+export interface IPointer {
+  path: SVGElement;
+  uuid: string;
 }
