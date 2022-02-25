@@ -17,15 +17,26 @@ import "./styles/index.sass";
 import "./styles/gui.sass";
 import "./assets/svg/hz.svg";
 import { Wire } from "./components/Wire";
+
+let hz = new Gerts();
+let seg1 = new SEGMENT7();
+// seg1.setPos({ x: 500, y: 200 });
+// hz.setPos({ x: 100, y: 100 });
+// let w = new Wire();
+// w.setStartPos(hz.Pins["A"].getPos());
+// w.setStopPos(seg1.Pins["A"].getPos());
+// hz.Pins["A"].addPin(seg1, seg1.Pins["A"]);
+// seg1.Pins["A"].inputPins[seg1.Pins["A"].pinId] = hz.Pins["A"];
+// hz.Pins["A"].addWire(w);
+// seg1.Pins["A"].addWire(w);
 let sw = new Switch();
 let sw1 = new Switch();
 let sw12 = new Switch();
-// // let or = new OR();
-// let btn = new Button();
-
-// let not = new NOT();
+// let or = new OR();
+let btn = new Button();
+let not = new NOT();
 let seg = new LEDArray();
-// let and = new AND();
+let and = new AND();
 
 // seg.setPos({ x: 600, y: 200 });
 // and.setPos({ x: 300, y: 150 });

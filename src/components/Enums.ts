@@ -14,7 +14,7 @@ export enum POSITION {
   LEFT = 4,
 }
 export enum KUCHLANISH {
-  YUQORI = 255,
+  YUQORI = 1,
   PAST = 0,
 }
 export enum WIRESTATE {

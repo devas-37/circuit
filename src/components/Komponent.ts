@@ -85,11 +85,18 @@ export class Komponent {
         komponentBufer.Pins[pinNameBufer]
       );
       komponentBufer.Pins[pinNameBufer].Write(this.Pins[payload.name].state);
+      komponentBufer.Pins[pinNameBufer].inputPins[
+        this.Pins[payload.name].pinId
+      ] = this.Pins[payload.name];
       komponentBufer.Fire();
     } else if (payload.pinType == PINTYPE.KIRISH) {
       wireBuffer.setStopPos(payload.pos);
       komponentBufer.Pins[pinNameBufer].addPin(this, this.Pins[payload.name]);
       this.Pins[payload.name].Write(komponentBufer.Pins[pinNameBufer].state);
+      this.Pins[payload.name].inputPins[
+        komponentBufer.Pins[pinNameBufer].pinId
+      ] = komponentBufer.Pins[pinNameBufer];
+      this.Pins[payload.name].updateState();
       this.Fire();
     }
     this.Pins[payload.name].addWire(wireBuffer);

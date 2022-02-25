@@ -1,8 +1,9 @@
-import { PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
+import { KUCHLANISH, PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 
 export class Gerts extends Komponent {
+  state: boolean = false;
   constructor() {
     super("HZ", TOOLTYPE.GERTS);
     this.setPins({
@@ -12,5 +13,11 @@ export class Gerts extends Komponent {
       width: 64,
       height: 30,
     });
+
+    setInterval(this.Tick.bind(this), 500);
+  }
+  Tick() {
+    this.state = !this.state;
+    this.Pins["A"].Write(this.state ? KUCHLANISH.YUQORI : KUCHLANISH.PAST);
   }
 }

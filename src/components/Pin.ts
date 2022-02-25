@@ -39,6 +39,7 @@ export class Pin {
   public onMoveConnect: (e: MouseEvent, payload: PinPayload) => {} | void;
   public onEndConnect: (e: MouseEvent, payload: PinPayload) => {} | void;
   pinId: string;
+  inputPins: { [key: string]: Pin } = {};
   constructor(
     name: string,
     pinType: PINTYPE,
@@ -122,10 +123,20 @@ export class Pin {
     this.state = kuchlanish;
     for (const key in this.Pins) {
       this.Pins[key].pins.forEach((e: Pin) => {
-        e.Write(kuchlanish);
+        e.updateState();
+        console.log("salom");
       });
-      this.Pins[key].komponent.Fire();
     }
+  }
+  updateState() {
+    this.Write(
+      Object.keys(this.inputPins)
+        .map((key) => this.inputPins[key].state)
+        .some((val) => val == KUCHLANISH.YUQORI)
+        ? KUCHLANISH.YUQORI
+        : KUCHLANISH.PAST
+    );
+    this.parentElement.Fire();
   }
   addPin(komponent: Komponent = null, pinName: Pin = null) {
     let a = komponent.element;
