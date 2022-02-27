@@ -132,7 +132,7 @@ export class SEGMENT7 extends Komponent {
   Fire() {
     let bin = `${this.p("D")}${this.p("C")}${this.p("B")}${this.p("A")}`;
     let son = parseInt(bin, 2);
-    console.log(son);
+
     this.numbers["8"].forEach((e) => {
       this.Seg[e].off();
     });

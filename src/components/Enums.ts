@@ -43,6 +43,7 @@ export enum TOOLTYPE {
   SWITCH = "sw",
   GERTS = "hz",
   LEDARRAY = "larr",
+  MUX = "mux",
 }
 
 export enum COLORS {

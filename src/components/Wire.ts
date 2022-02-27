@@ -27,7 +27,6 @@ export class Wire {
     this.pathContainer = createSVG("svg");
     this.pathContainer.classList.add("svg-wire");
     this.path = createSVG("path");
-
     this.path.classList.add("svg-path");
     this.pathContainer.appendChild(this.path);
     getId("root").appendChild(this.pathContainer);
@@ -243,6 +242,11 @@ export class Wire {
   }
   setState(state: WIRESTATE = WIRESTATE.OFF) {
     this.state = state;
+    if (state == WIRESTATE.ON) {
+      this.pathContainer.style.stroke = "red";
+    } else {
+      this.pathContainer.style.stroke = "#1B4752";
+    }
   }
   getState() {
     return this.state;

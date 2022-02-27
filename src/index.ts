@@ -12,6 +12,7 @@ import {
   Switch,
   Gerts,
   LEDArray,
+  Mux,
 } from "./Tools/index";
 import "./styles/index.sass";
 import "./styles/gui.sass";
@@ -20,6 +21,7 @@ import { Wire } from "./components/Wire";
 
 let hz = new Gerts();
 let seg1 = new SEGMENT7();
+let m = new Mux();
 // seg1.setPos({ x: 500, y: 200 });
 // hz.setPos({ x: 100, y: 100 });
 // let w = new Wire();
@@ -31,12 +33,12 @@ let seg1 = new SEGMENT7();
 // seg1.Pins["A"].addWire(w);
 let sw = new Switch();
 let sw1 = new Switch();
-let sw12 = new Switch();
-// let or = new OR();
-let btn = new Button();
-let not = new NOT();
-let seg = new LEDArray();
-let and = new AND();
+// let sw12 = new Switch();
+// // let or = new OR();
+// let btn = new Button();
+// let not = new NOT();
+// let seg = new LEDArray();
+// let and = new AND();
 
 // seg.setPos({ x: 600, y: 200 });
 // and.setPos({ x: 300, y: 150 });

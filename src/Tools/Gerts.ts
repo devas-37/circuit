@@ -13,7 +13,6 @@ export class Gerts extends Komponent {
       width: 64,
       height: 30,
     });
-
     setInterval(this.Tick.bind(this), 500);
   }
   Tick() {

@@ -124,7 +124,6 @@ export class Pin {
     for (const key in this.Pins) {
       this.Pins[key].pins.forEach((e: Pin) => {
         e.updateState();
-        console.log("salom");
       });
     }
   }

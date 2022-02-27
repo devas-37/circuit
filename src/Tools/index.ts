@@ -10,6 +10,7 @@ import { Switch } from "./Switch";
 import { Button } from "./Button";
 import { Gerts } from "./Gerts";
 import { LEDArray } from "./LEDArray";
+import { Mux } from "./Mux";
 export {
   LEDArray,
   Gerts,
@@ -23,4 +24,5 @@ export {
   Buffer,
   Button,
   Switch,
+  Mux,
 };
