@@ -43,14 +43,20 @@ export class Connnector {
     this.setPos({ x: e.clientX, y: e.clientY });
     this.circle.setAttribute("cx", (e.clientX - 270).toString());
     this.circle.setAttribute("cy", e.clientY.toString());
-    this.parentWire.moveConnector(this.connectorId, {
-      x: e.clientX - 270,
-      y: e.clientY,
-    });
+    this.parentWire.moveConnector(
+      this.connectorId,
+      {
+        x: e.clientX - 270,
+        y: e.clientY,
+      },
+      this
+    );
   }
 
   setPos(pos: IPoint) {
     this.point = pos;
+    this.circle.setAttribute("cx", pos.x.toString());
+    this.circle.setAttribute("cy", pos.y.toString());
   }
   getPos() {
     return { ...this.point, x: this.point.x - 270 };

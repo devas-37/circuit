@@ -130,8 +130,56 @@ export class Wire {
       }
     }
   }
-  moveConnector(uuid: string, point: IPoint) {
+  moveConnector(uuid: string, point: IPoint, connector: Connnector) {
     this.connectors[uuid].point = point;
+    let cx = this.connectors[uuid].point.x;
+    let cy = this.connectors[uuid].point.y;
+    if (cx > this.startPos.x - 5 && cx < this.startPos.x + 5) {
+      connector.setPos({ x: this.startPos.x, y: connector.getPos().y });
+      this.connectors[uuid].point = { x: this.startPos.x, y: point.y };
+    }
+    if (cy > this.startPos.y - 10 && cy < this.startPos.y + 10) {
+      connector.setPos({ x: connector.getPos().x, y: this.startPos.y });
+      this.connectors[uuid].point = { x: point.x, y: this.startPos.y };
+    }
+    if (cx > this.stopPos.x - 5 && cx < this.stopPos.x + 5) {
+      connector.setPos({ x: this.stopPos.x, y: connector.getPos().y });
+      this.connectors[uuid].point = { x: this.stopPos.x, y: point.y };
+    }
+    if (cy > this.stopPos.y - 10 && cy < this.stopPos.y + 10) {
+      connector.setPos({ x: connector.getPos().x, y: this.stopPos.y });
+      this.connectors[uuid].point = { x: point.x, y: this.stopPos.y };
+    }
+    Object.keys(this.connectors).forEach((id) => {
+      if (uuid !== id) {
+        if (
+          cx > this.connectors[id].point.x - 10 &&
+          cx < this.connectors[id].point.x + 5
+        ) {
+          connector.setPos({
+            x: this.connectors[id].point.x,
+            y: point.y,
+          });
+          this.connectors[uuid].point = {
+            x: this.connectors[id].point.x,
+            y: point.y,
+          };
+        }
+        if (
+          cy > this.connectors[id].point.y - 10 &&
+          cy < this.connectors[id].point.y + 5
+        ) {
+          connector.setPos({
+            x: point.x,
+            y: this.connectors[id].point.y,
+          });
+          this.connectors[uuid].point = {
+            x: point.x,
+            y: this.connectors[id].point.y,
+          };
+        }
+      }
+    });
     this.updatePaths(uuid);
   }
   updatePath() {
@@ -220,10 +268,7 @@ export class Wire {
       isset: false,
     };
   }
-  /**
-   *  Pathni qismlarga bo'lish uchun
-   */
-  addSegment() {}
+
   /**
    *
    * @param pos Pathning boshlang'ich pozitsiyasi
