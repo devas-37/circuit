@@ -24,7 +24,7 @@ export class Connnector {
     this.circle.setAttribute("cx", (pos.x - 270).toString());
     this.circle.setAttribute("cy", pos.y.toString());
     this.circle.setAttribute("r", "5");
-    this.circle.setAttribute("fill", "red");
+
     this.element = wire.pathContainer as SVGElement;
     this.element.appendChild(this.circle);
     let ref = this.mouseMove.bind(this);

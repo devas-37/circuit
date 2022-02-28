@@ -1,4 +1,11 @@
-import { TOOLTYPE, PINTYPE, POSITION, STYLES } from "./Enums";
+import {
+  TOOLTYPE,
+  PINTYPE,
+  POSITION,
+  STYLES,
+  KUCHLANISH,
+  WIRESTATE,
+} from "./Enums";
 import { Pin } from "./Pin";
 import { v4 as uuid } from "uuid";
 import { IPoint, PinPayload } from "./Interfaces";
@@ -68,6 +75,8 @@ export class Komponent {
 
   beginConnect(e: MouseEvent, payload: PinPayload) {
     wireBuffer = new Wire();
+    if (this.Pins[payload.name].state == KUCHLANISH.YUQORI)
+      wireBuffer.setState(WIRESTATE.ON);
     if (payload.pinType == PINTYPE.CHIQISH) {
       wireBuffer.setStartPos(payload.pos);
     } else if (payload.pinType == PINTYPE.KIRISH) {
@@ -147,7 +156,9 @@ export class Komponent {
       }
     });
   }
-
+  getElement() {
+    return this.parent.cloneNode(true);
+  }
   setSize(size: { width: number; height: number }) {
     this.parent.style.width = size.width + "px";
     this.parent.style.height = size.height + "px";

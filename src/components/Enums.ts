@@ -22,7 +22,7 @@ export enum WIRESTATE {
   OFF = 0,
 }
 export enum STYLES {
-  AND = "and-gate",
+  AND = "logic-gate",
   BORDER = "border",
   FLEX = "flex",
 }

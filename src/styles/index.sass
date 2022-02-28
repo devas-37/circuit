@@ -25,7 +25,7 @@ $radius: 5px
     position: absolute
     z-index: 5
 
-.and-gate
+.logic-gate
     width: 60px
     height: 40px
     border-radius: $radius
@@ -60,7 +60,7 @@ $radius: 5px
         z-index: 2
         stroke-width: 5
         stroke-linecap: round
-
+        border: 1px solid red
         fill: none
     & circle
         z-index: 3
@@ -68,7 +68,9 @@ $radius: 5px
         stroke: black
         fill: white
         transition: transform 0.2s
-
+.selected-path
+    & >*
+        filter: drop-shadow(0px 3px 3px red)
 .pinCLeft
     left: 0
     top: 0
