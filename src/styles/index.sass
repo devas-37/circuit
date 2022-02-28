@@ -1,5 +1,5 @@
 
-$border: 2px solid #1B4752
+$border: 1px solid #1B4752
 $pin-radius: 5px
 $radius: 5px
 
@@ -18,31 +18,61 @@ $radius: 5px
     justify-content: center
     align-items: center
     color: white
-    background: #007F9E
+    background: #1B4752
     user-select: none
     position: relative
     letter-spacing: 1.1px
     position: absolute
     z-index: 5
+    box-shadow: 5px 5px 15px 0 #1B475299
+    // &:after
+    //     position: absolute
+    //     content: ''
+    //     width: 6px
+    //     height: 6px
+    //     background: white
+    //     right: 8px
+    //     top: 8px
+    //     border-radius: 3px
 
 .logic-gate
     width: 60px
     height: 40px
     border-radius: $radius
     display: flex
-
 .elpin
-
     width: 9px
     height: 9px
-    border-radius: 4px
     background: white
     border: $border
     transition: 0.2s
-
+    display: flex
+    align-items: center
+    font-size: 12px
+    color: #807E7E
     &:hover
-        transform: scale(1.3)
+        background: #00A5D9
 
+.left span
+    margin-left: 15px
+    font-size: 12px
+.right span
+    position: absolute
+    left: -15px
+    font-size: 12px
+.top
+    justify-content: center
+    & span
+        position: absolute
+        top: 15px
+.bottom
+    justify-content: center
+    & span
+        position: absolute
+        bottom: 15px
+.circuit-label
+    width: 50px
+    text-align: center
 .pinC
     position: absolute
     z-index: 5
@@ -62,15 +92,14 @@ $radius: 5px
         stroke-linecap: round
         border: 1px solid red
         fill: none
+        filter: drop-shadow(5px 5px 10px #1B475299)
     & circle
         z-index: 3
         stroke-width: 2
         stroke: black
         fill: white
         transition: transform 0.2s
-.selected-path
-    & >*
-        filter: drop-shadow(0px 3px 3px red)
+
 .pinCLeft
     left: 0
     top: 0
@@ -78,7 +107,11 @@ $radius: 5px
     display: flex
     flex-direction: column
     justify-content: space-evenly
-    transform: translateX(-8px)
+    transform: translateX(-11px)
+    &>div
+        border-radius: 3px 0 0 3px
+        &:hover
+
 .pinCRight
     right: 0
     top: 0
@@ -86,15 +119,20 @@ $radius: 5px
     display: flex
     flex-direction: column
     justify-content: space-evenly
-    transform: translateX(8px)
-
+    transform: translateX(11px)
+    &>div
+        border-radius: 0 3px 3px 0
+        &:hover
 .pinCTop
     top: 0
     left: 0
     width: 100%
     display: flex
     justify-content: space-evenly
-    transform: translateY(-8px)
+    transform: translateY(-11px)
+    &>div
+        border-radius: 3px 3px 0 0
+        &:hover
 
 .pinCBottom
     bottom: 0
@@ -102,7 +140,10 @@ $radius: 5px
     width: 100%
     display: flex
     justify-content: space-evenly
-    transform: translateY(8px)
+    transform: translateY(11px)
+    &>div
+        border-radius: 0 0 3px 3px
+        &:hover
 
 .buttonELBtn
     width: 24px
@@ -151,18 +192,19 @@ $radius: 5px
     display: flex
     width: 100%
     height: 100%
-    justify-content: space-between
+    justify-content: space-evenly
 
     &>div
         width: 100%
         display: flex
         flex-direction: column
-        justify-content: space-between
+        align-items: center
+        justify-content: space-evenly
 
     &>div div
-        width: 20px
-        height: 20px
-        background-color: #DFDFDF
+        width: 15px
+        height: 15px
+        background-color: #026077
         border-radius: 9px
 
 .led-turn-on

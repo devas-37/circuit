@@ -41,11 +41,11 @@ export class LEDArray extends Komponent {
       ledContainer.appendChild(container);
     });
     this.setSize({
-      width: 146,
-      height: 151,
+      width: 116,
+      height: 121,
     });
     console.log(this.leds);
-    this.parent.style.padding = "10px";
+    this.parent.style.padding = "5px";
     this.parent.appendChild(ledContainer);
   }
   Fire() {

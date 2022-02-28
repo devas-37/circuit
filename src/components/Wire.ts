@@ -26,13 +26,13 @@ export class Wire {
     this.wireId = uuid();
     this.pathContainer = createSVG("svg");
     this.pathContainer.classList.add("svg-wire");
-    this.pathContainer.addEventListener("click", (e) => {
-      if (this.pathContainer.classList.contains("selected-path")) {
-        this.pathContainer.classList.remove("selected-path");
-      } else {
-        this.pathContainer.classList.add("selected-path");
-      }
-    });
+    // this.pathContainer.addEventListener("click", (e) => {
+    //   if (this.pathContainer.classList.contains("selected-path")) {
+    //     this.pathContainer.classList.remove("selected-path");
+    //   } else {
+    //     this.pathContainer.classList.add("selected-path");
+    //   }
+    // });
     this.path = createSVG("path");
     this.path.classList.add("svg-path");
     this.pathContainer.appendChild(this.path);
@@ -276,7 +276,7 @@ export class Wire {
   setState(state: WIRESTATE = WIRESTATE.OFF) {
     this.state = state;
     if (state == WIRESTATE.ON) {
-      this.pathContainer.style.stroke = "#F75151";
+      this.pathContainer.style.stroke = "#FF5D5D";
     } else {
       this.pathContainer.style.stroke = "#1B4752";
     }

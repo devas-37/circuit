@@ -39,19 +39,25 @@ export class Pin {
   public onMoveConnect: (e: MouseEvent, payload: PinPayload) => {} | void;
   public onEndConnect: (e: MouseEvent, payload: PinPayload) => {} | void;
   pinId: string;
+  label: string = "";
   inputPins: { [key: string]: Pin } = {};
   constructor(
     name: string,
     pinType: PINTYPE,
-    position: POSITION = POSITION.LEFT
+    position: POSITION = POSITION.LEFT,
+    label: string = null
   ) {
+    this.label = label;
     this.pinId = uuid();
     this.PinType = pinType;
     this.name = name;
     this.parentElement;
-    this.position = position;
+    this.position = position ? position : POSITION.LEFT;
     this.pinContainer = createEl("div");
-    this.pinContainer.classList.add("elpin");
+    this.pinContainer.classList.add(...["elpin", position ? position : "left"]);
+    if (label) {
+      this.pinContainer.innerHTML = `<span>${label}</span>`;
+    }
     this.pinContainer.onmousedown = (e) => {
       e.stopPropagation();
       this.onBeginConnect(e, {

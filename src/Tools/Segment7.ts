@@ -17,7 +17,7 @@ class SEGMENT {
     this.element.setAttributeNS(null, "fill", "white");
   }
   off() {
-    this.element.setAttributeNS(null, "fill", "#02607793");
+    this.element.setAttributeNS(null, "fill", "#026077");
   }
   instance(): SVGElement {
     return this.element as SVGElement;

@@ -40,6 +40,7 @@ export class Komponent {
     this.parent.classList.add(STYLES.AND, STYLES.BORDER, STYLES.FLEX);
     let textNode = createEl("div");
     textNode.innerHTML = this.element;
+    if (this.element) textNode.classList.add("circuit-label");
     this.parent.appendChild(textNode);
     this.leftPins = createEl("div");
     this.rightPins = createEl("div");

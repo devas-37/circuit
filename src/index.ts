@@ -1,6 +1,7 @@
 import { TOOLTYPE, PINTYPE, KUCHLANISH } from "./components/Enums";
 import { Komponent } from "./components/Komponent";
 import {
+  SRLatch,
   OR,
   AND,
   NOT,
@@ -20,6 +21,14 @@ import "./assets/svg/hz.svg";
 import { Wire } from "./components/Wire";
 import { getId } from "./utils/index";
 let tools = [];
+let sr = new SRLatch();
+sr.setPos({
+  x: 200,
+  y: 200,
+});
+// let and = new AND();
+// let seg = new SEGMENT7();
+// let seg1 = new LEDArray();
 // let output = getId("output-all-tools");
 // let seg1 = new SEGMENT7();
 

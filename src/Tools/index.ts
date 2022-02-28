@@ -11,7 +11,9 @@ import { Button } from "./Button";
 import { Gerts } from "./Gerts";
 import { LEDArray } from "./LEDArray";
 import { Mux } from "./Mux";
+import { SRLatch } from "./SRLatch";
 export {
+  SRLatch,
   LEDArray,
   Gerts,
   OR,

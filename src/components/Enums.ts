@@ -8,10 +8,10 @@ export enum QUTB {
   MUSBAT = 1,
 }
 export enum POSITION {
-  TOP = 8,
-  RIGHT = 6,
-  BOTTOM = 2,
-  LEFT = 4,
+  TOP = "top",
+  RIGHT = "right",
+  BOTTOM = "bottom",
+  LEFT = "left",
 }
 export enum KUCHLANISH {
   YUQORI = 1,
@@ -44,6 +44,7 @@ export enum TOOLTYPE {
   GERTS = "hz",
   LEDARRAY = "larr",
   MUX = "mux",
+  SRLATCH = "srl",
 }
 
 export enum COLORS {
