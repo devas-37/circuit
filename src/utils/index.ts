@@ -18,3 +18,31 @@ export const generatePathData = (start: IPoint, stop: IPoint) => {
     start.y
   } ${stop.x - (stop.x - start.x) / 2},${stop.y} ${stop.x}, ${stop.y}`;
 };
+export const drawLines1 = (
+  ctx: CanvasRenderingContext2D,
+  d: number,
+  width: number,
+  height: number,
+  size: number
+) => {
+  ctx.moveTo(0, d);
+  ctx.lineTo(Math.round(width / 2 - size / 2), d);
+  ctx.moveTo(Math.round(width / 2 + size / 2), d);
+  ctx.lineTo(width, d);
+  ctx.moveTo(0, d + Math.round(width / 2 + size / 2));
+  ctx.lineTo(
+    Math.round(width / 2 - size / 2),
+    d + Math.round(width / 2 + size / 2)
+  );
+  ctx.moveTo(
+    Math.round(width / 2 + size / 2),
+    d + Math.round(width / 2 + size / 2)
+  );
+  ctx.lineTo(width, d + Math.round(width / 2 + size / 2));
+  ctx.moveTo(d, 0);
+  ctx.lineTo(d, height);
+  ctx.moveTo(d + (width / 2 + size / 2), 0);
+  ctx.lineTo(d + (width / 2 + size / 2), height);
+};
+export const diffLeft = 0;
+export const diffTop = 0;

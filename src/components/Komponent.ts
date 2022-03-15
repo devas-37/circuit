@@ -10,7 +10,7 @@ import { Pin } from "./Pin";
 import { v4 as uuid } from "uuid";
 import { IPoint, PinPayload } from "./Interfaces";
 import { Wire } from "./Wire";
-import { createEl, getId } from "../utils/index";
+import { createEl, diffLeft, getId } from "../utils/index";
 type Element = HTMLElement | SVGElement;
 let m = 5;
 let wireBuffer: Wire;
@@ -25,18 +25,29 @@ export class Komponent {
   public rightPins: Element;
   public topPins: Element;
   public bottomPins: Element;
+  setting: boolean = false;
   uuid: string;
   move: boolean = false;
   point: { x: number; y: number; left: number; top: number };
   public Pins: { [key: string]: Pin };
+  onSettingClick: () => {} | void;
   pinKeys: string[];
-  constructor(el: string, type: TOOLTYPE = null) {
+  settingBtn: HTMLElement;
+  outputPins: string[] = [];
+  constructor(el: string, type: TOOLTYPE = null, setting: boolean = false) {
     this.uuid = uuid();
     if (type) this.type = type;
+    if (setting) {
+      this.setting = setting;
+    }
+    window.oncontextmenu = function (e) {
+      e.preventDefault();
+    };
     this.element = el;
     this.canvas = getId("root");
     this.parent = createEl("div");
     this.parent.onmousedown = this.parentMouseDown.bind(this);
+    this.parent.onclick = this.mouseClick.bind(this);
     this.parent.classList.add(STYLES.AND, STYLES.BORDER, STYLES.FLEX);
     let textNode = createEl("div");
     textNode.innerHTML = this.element;
@@ -55,12 +66,24 @@ export class Komponent {
     this.parent.appendChild(this.bottomPins);
     this.parent.appendChild(this.topPins);
     this.canvas.appendChild(this.parent);
-  }
 
+    this.parent.style.left = window.innerWidth / 2 + "px";
+    this.parent.style.top = window.innerHeight / 2 + "px";
+  }
+  mouseClick() {
+    if (this.setting) {
+      getId("setting-button").onclick = this.onSettingClick;
+      if (!getId("setting-button").classList.contains("show-setting-button")) {
+        getId("setting-button").classList.add("show-setting-button");
+      }
+    } else {
+      getId("setting-button").classList.remove("show-setting-button");
+    }
+  }
   parentMouseDown(e: MouseEvent) {
     e.stopPropagation();
     this.point = {
-      x: e.clientX + 270,
+      x: e.clientX + diffLeft,
       y: e.clientY,
       left: this.parent.getBoundingClientRect().left,
       top: this.parent.getBoundingClientRect().top,
@@ -76,8 +99,7 @@ export class Komponent {
 
   beginConnect(e: MouseEvent, payload: PinPayload) {
     wireBuffer = new Wire();
-    if (this.Pins[payload.name].state == KUCHLANISH.YUQORI)
-      wireBuffer.setState(WIRESTATE.ON);
+    wireBuffer.setState(this.Pins[payload.name].state);
     if (payload.pinType == PINTYPE.CHIQISH) {
       wireBuffer.setStartPos(payload.pos);
     } else if (payload.pinType == PINTYPE.KIRISH) {
@@ -94,29 +116,42 @@ export class Komponent {
         komponentBufer,
         komponentBufer.Pins[pinNameBufer]
       );
-      komponentBufer.Pins[pinNameBufer].Write(this.Pins[payload.name].state);
       komponentBufer.Pins[pinNameBufer].inputPins[
         this.Pins[payload.name].pinId
       ] = this.Pins[payload.name];
+      komponentBufer.detectPinsStates();
       komponentBufer.Fire();
+      wireBuffer.setState(this.Pins[payload.name].state);
     } else if (payload.pinType == PINTYPE.KIRISH) {
       wireBuffer.setStopPos(payload.pos);
       komponentBufer.Pins[pinNameBufer].addPin(this, this.Pins[payload.name]);
-      this.Pins[payload.name].Write(komponentBufer.Pins[pinNameBufer].state);
       this.Pins[payload.name].inputPins[
         komponentBufer.Pins[pinNameBufer].pinId
       ] = komponentBufer.Pins[pinNameBufer];
-      this.Pins[payload.name].updateState();
+      this.detectPinsStates();
       this.Fire();
     }
     this.Pins[payload.name].addWire(wireBuffer);
+    komponentBufer = null;
   }
   moveConnect(e: MouseEvent, payload: PinPayload) {
     if (payload.pinType == PINTYPE.CHIQISH) {
-      wireBuffer.setStopPos({ x: e.clientX - 270, y: e.clientY });
+      wireBuffer.setStopPos({ x: e.clientX - diffLeft, y: e.clientY });
     } else if (payload.pinType == PINTYPE.KIRISH) {
-      wireBuffer.setStartPos({ x: e.clientX - 270, y: e.clientY });
+      wireBuffer.setStartPos({ x: e.clientX - diffLeft, y: e.clientY });
     }
+  }
+  detectPinsStates() {
+    this.outputPins.forEach((key) => {
+      let pin: Pin = this.Pins[key];
+      pin.Write(
+        Object.keys(pin.inputPins)
+          .map((key) => pin.inputPins[key].state)
+          .some((val) => val == KUCHLANISH.YUQORI)
+          ? KUCHLANISH.YUQORI
+          : KUCHLANISH.PAST
+      );
+    });
   }
   rootMouseMove(e: MouseEvent) {
     if (this.move) {
@@ -133,6 +168,7 @@ export class Komponent {
     this.Pins = pins;
     this.pinKeys = Object.keys(pins);
     Object.keys(pins).map((pin) => {
+      if (pins[pin].PinType == PINTYPE.KIRISH) this.outputPins.push(pin);
       pins[pin].setParent(this);
       pins[pin].onBeginConnect = this.beginConnect.bind(this);
       pins[pin].onEndConnect = this.endConnect.bind(this);
@@ -169,7 +205,5 @@ export class Komponent {
     this.parent.style.top = pos.y + "px";
   }
   render() {}
-  Fire() {
-    console.log("Fire on komponent bilan fires");
-  }
+  Fire() {}
 }

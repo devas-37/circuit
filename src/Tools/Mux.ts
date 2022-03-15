@@ -6,7 +6,6 @@ export class Mux extends Komponent {
   inputPins = ["A", "B", "C", "D"];
   constructor() {
     super("MUX", TOOLTYPE.MUX);
-
     this.setPins({
       A: new Pin("A", PINTYPE.KIRISH),
       B: new Pin("B", PINTYPE.KIRISH),

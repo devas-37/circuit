@@ -40,3 +40,18 @@ export interface IPointer {
   path: SVGElement;
   uuid: string;
 }
+
+export interface IProjectSource {
+  elements: {
+    [key: string]: {
+      name: string;
+      uuid: string;
+      position: IPoint;
+    };
+  };
+  connects: {
+    [key: string]: {
+      [pinName: string]: {};
+    };
+  };
+}

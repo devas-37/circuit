@@ -14,7 +14,7 @@ import { AND } from "../Tools/And";
 import { OR } from "../Tools/Or";
 import { SEGMENT7 } from "../Tools/Segment7";
 import { PinPayload } from "./Interfaces";
-import { createEl } from "../utils/index";
+import { createEl, diffLeft } from "../utils/index";
 
 interface CHILD {
   komponent: Komponent;
@@ -95,7 +95,7 @@ export class Pin {
   getPos() {
     let pos = this.pinContainer.getBoundingClientRect();
     return {
-      x: pos.left + pos.width / 2 - 270,
+      x: pos.left + pos.width / 2 - diffLeft,
       y: pos.top + pos.height / 2,
     };
   }
@@ -117,34 +117,32 @@ export class Pin {
     return Boolean(this.Wires.length);
   }
   Write(kuchlanish: KUCHLANISH) {
-    if (kuchlanish) {
+    if (kuchlanish && this.PinType == PINTYPE.CHIQISH) {
       this.Wires.forEach((wire) => {
-        wire.setState(WIRESTATE.ON);
+        wire.setState(kuchlanish);
       });
-    } else {
+    } else if (this.PinType == PINTYPE.CHIQISH) {
       this.Wires.forEach((wire) => {
-        wire.setState(WIRESTATE.OFF);
+        wire.setState(KUCHLANISH.PAST);
       });
     }
     this.state = kuchlanish;
     for (const key in this.Pins) {
-      this.Pins[key].pins.forEach((e: Pin) => {
-        e.updateState();
-      });
+      this.Pins[key].komponent.detectPinsStates();
+      this.Pins[key].komponent.Fire();
     }
   }
   updateState() {
-    this.Write(
-      Object.keys(this.inputPins)
-        .map((key) => this.inputPins[key].state)
-        .some((val) => val == KUCHLANISH.YUQORI)
-        ? KUCHLANISH.YUQORI
-        : KUCHLANISH.PAST
-    );
-    this.parentElement.Fire();
+    // this.Write(
+    //   Object.keys(this.inputPins)
+    //     .map((key) => this.inputPins[key].state)
+    //     .some((val) => val == KUCHLANISH.YUQORI)
+    //     ? KUCHLANISH.YUQORI
+    //     : KUCHLANISH.PAST
+    // );
   }
   addPin(komponent: Komponent = null, pinName: Pin = null) {
-    let a = komponent.element;
+    let a = komponent.uuid;
     if (this.Pins[a]) {
       this.Pins[a].pins.push(pinName);
     } else {

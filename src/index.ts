@@ -14,39 +14,100 @@ import {
   Gerts,
   LEDArray,
   Mux,
+  PLM,
+  RAM,
+  PML,
+  NAND,
+  NOR,
+  XOR,
 } from "./Tools/index";
 import "./styles/index.sass";
 import "./styles/gui.sass";
 import "./assets/svg/hz.svg";
 import { Wire } from "./components/Wire";
 import { getId } from "./utils/index";
+import { XNOR } from "./Tools/Xnor";
 let tools = [];
-let sr = new SRLatch();
-sr.setPos({
-  x: 200,
-  y: 200,
-});
-// let and = new AND();
-// let seg = new SEGMENT7();
-// let seg1 = new LEDArray();
-// let output = getId("output-all-tools");
-// let seg1 = new SEGMENT7();
 
-// let m = new Mux();
-// // seg1.setPos({ x: 500, y: 200 });
-// // hz.setPos({ x: 100, y: 100 });
-// let w = new Wire();
-// // w.setStartPos(hz.Pins["A"].getPos());
-// // w.setStopPos(seg1.Pins["A"].getPos());
-// // hz.Pins["A"].addPin(seg1, seg1.Pins["A"]);
-// // seg1.Pins["A"].inputPins[seg1.Pins["A"].pinId] = hz.Pins["A"];
-// // hz.Pins["A"].addWire(w);
-// // seg1.Pins["A"].addWire(w);
-// let sw = new Switch();
-// let sw1 = new Switch();
-// // let sw12 = new Switch();
-// // // let or = new OR();
-// // let btn = new Button();
-// // let not = new NOT();
-// let seg = new LEDArray();
-// let and = new AND();
+let tb = getId("tb");
+let toolbar = getId("toolbar");
+let tbContainer = getId("tb-container");
+tb.addEventListener("click", () => {
+  if (tbContainer.classList.contains("tools-button-toggle"))
+    tbContainer.classList.remove("tools-button-toggle");
+  else tbContainer.classList.add("tools-button-toggle");
+  if (toolbar.classList.contains("toolbar-open"))
+    toolbar.classList.remove("toolbar-open");
+  else toolbar.classList.add("toolbar-open");
+});
+let GlobalElements: { [key: string]: Komponent } = {};
+let logics = getId("toolbar").querySelectorAll(".logic-gate");
+console.log(logics);
+logics.forEach((gate) => {
+  let element = gate as HTMLElement;
+  element.onclick = function () {
+    let el: Komponent = null;
+    switch (element.getAttribute("data-gateName")) {
+      case "and": {
+        el = new AND();
+        break;
+      }
+      case "nand": {
+        el = new NAND();
+        break;
+      }
+      case "or": {
+        el = new OR();
+        break;
+      }
+      case "sw": {
+        el = new Switch();
+        break;
+      }
+      case "btn": {
+        el = new Button();
+        break;
+      }
+      case "hz": {
+        el = new Gerts();
+        break;
+      }
+      case "xor": {
+        el = new XOR();
+        break;
+      }
+      case "nor": {
+        el = new NOR();
+        break;
+      }
+      case "xnor": {
+        el = new XNOR();
+        break;
+      }
+      case "not": {
+        el = new NOT();
+        break;
+      }
+      case "segment": {
+        el = new SEGMENT7();
+        break;
+      }
+      case "ledC": {
+        el = new LEDArray();
+        break;
+      }
+      case "sL": {
+        el = new SRLatch();
+        break;
+      }
+      case "plm": {
+        el = new PLM();
+        break;
+      }
+    }
+    console.log(el);
+    GlobalElements[el.uuid] = el;
+    saveProject();
+  };
+});
+export function saveProject() {}

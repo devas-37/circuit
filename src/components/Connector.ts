@@ -1,7 +1,8 @@
-import { createSVG, generatePathData, getId } from "../utils/index";
+import { createSVG, diffLeft, generatePathData, getId } from "../utils/index";
 import { IPoint } from "./Interfaces";
 import { Wire } from "./Wire";
 import { stringify, v4 as uuid } from "uuid";
+import { saveProject } from "../index";
 export class Connnector {
   move: boolean = true;
   circle: SVGElement;
@@ -21,7 +22,7 @@ export class Connnector {
       "http://www.w3.org/2000/svg",
       "circle"
     );
-    this.circle.setAttribute("cx", (pos.x - 270).toString());
+    this.circle.setAttribute("cx", (pos.x - diffLeft).toString());
     this.circle.setAttribute("cy", pos.y.toString());
     this.circle.setAttribute("r", "5");
 
@@ -31,6 +32,7 @@ export class Connnector {
     let remove = () => {
       document.removeEventListener("mousemove", ref);
       document.removeEventListener("mouseup", remove);
+      saveProject();
     };
     document.addEventListener("mousemove", ref);
     document.addEventListener("mouseup", remove);
@@ -41,12 +43,12 @@ export class Connnector {
   }
   mouseMove(e: MouseEvent) {
     this.setPos({ x: e.clientX, y: e.clientY });
-    this.circle.setAttribute("cx", (e.clientX - 270).toString());
+    this.circle.setAttribute("cx", (e.clientX - diffLeft).toString());
     this.circle.setAttribute("cy", e.clientY.toString());
     this.parentWire.moveConnector(
       this.connectorId,
       {
-        x: e.clientX - 270,
+        x: e.clientX - diffLeft,
         y: e.clientY,
       },
       this
@@ -59,6 +61,6 @@ export class Connnector {
     this.circle.setAttribute("cy", pos.y.toString());
   }
   getPos() {
-    return { ...this.point, x: this.point.x - 270 };
+    return { ...this.point, x: this.point.x - diffLeft };
   }
 }

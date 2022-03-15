@@ -12,12 +12,21 @@ import { Gerts } from "./Gerts";
 import { LEDArray } from "./LEDArray";
 import { Mux } from "./Mux";
 import { SRLatch } from "./SRLatch";
+import { PLM } from "./PLM";
+import { RAM } from "./RAM";
+import { PML } from "./PML";
+import { NAND } from "./Nand";
+import { NOR } from "./Nor";
 export {
+  NAND,
+  RAM,
+  PLM,
   SRLatch,
   LEDArray,
   Gerts,
   OR,
   XOR,
+  NOR,
   TriState,
   SEGMENT7,
   AND,
@@ -27,4 +36,5 @@ export {
   Button,
   Switch,
   Mux,
+  PML,
 };

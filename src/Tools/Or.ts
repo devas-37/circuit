@@ -13,7 +13,7 @@ export class OR extends Komponent {
   }
 
   Fire() {
-    if (this.Pins.A.state | this.Pins.B.state) {
+    if (this.Pins.A.state || this.Pins.B.state) {
       this.Pins.C.Write(KUCHLANISH.YUQORI);
     } else {
       this.Pins.C.Write(KUCHLANISH.PAST);

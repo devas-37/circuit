@@ -45,8 +45,13 @@ export enum TOOLTYPE {
   LEDARRAY = "larr",
   MUX = "mux",
   SRLATCH = "srl",
+  PLM = "plm",
 }
-
+export enum PROGRAMMATORTYPE {
+  PLM = "plm",
+  PLA = "pla",
+  RAM = "ram",
+}
 export enum COLORS {
   BLUE = "007F9E",
   BORDER = "1B4752",
