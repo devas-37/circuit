@@ -11,17 +11,19 @@ import { Button } from "./Button";
 import { Gerts } from "./Gerts";
 import { LEDArray } from "./LEDArray";
 import { Mux } from "./Mux";
-import { SRLatch } from "./SRLatch";
+import { SR } from "./SR";
 import { PLM } from "./PLM";
 import { RAM } from "./RAM";
 import { PML } from "./PML";
 import { NAND } from "./Nand";
 import { NOR } from "./Nor";
+import { D } from "./D";
 export {
+  D,
   NAND,
   RAM,
   PLM,
-  SRLatch,
+  SR,
   LEDArray,
   Gerts,
   OR,

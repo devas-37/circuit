@@ -1,7 +1,7 @@
 import { TOOLTYPE, PINTYPE, KUCHLANISH } from "./components/Enums";
 import { Komponent } from "./components/Komponent";
 import {
-  SRLatch,
+  SR,
   OR,
   AND,
   NOT,
@@ -19,6 +19,7 @@ import {
   PML,
   NAND,
   NOR,
+  D,
   XOR,
 } from "./Tools/index";
 import "./styles/index.sass";
@@ -97,11 +98,27 @@ logics.forEach((gate) => {
         break;
       }
       case "sL": {
-        el = new SRLatch();
+        el = new SR();
+        break;
+      }
+      case "sT": {
+        el = new SR("TRIGGER");
         break;
       }
       case "plm": {
         el = new PLM();
+        break;
+      }
+      case "dT": {
+        el = new D("TRIGGER");
+        break;
+      }
+      case "dL": {
+        el = new D();
+        break;
+      }
+      case "buf": {
+        el = new Buffer();
         break;
       }
     }

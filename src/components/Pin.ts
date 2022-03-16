@@ -117,30 +117,24 @@ export class Pin {
     return Boolean(this.Wires.length);
   }
   Write(kuchlanish: KUCHLANISH) {
-    if (kuchlanish && this.PinType == PINTYPE.CHIQISH) {
-      this.Wires.forEach((wire) => {
-        wire.setState(kuchlanish);
-      });
-    } else if (this.PinType == PINTYPE.CHIQISH) {
-      this.Wires.forEach((wire) => {
-        wire.setState(KUCHLANISH.PAST);
-      });
-    }
-    this.state = kuchlanish;
-    for (const key in this.Pins) {
-      this.Pins[key].komponent.detectPinsStates();
-      this.Pins[key].komponent.Fire();
+    if (kuchlanish !== this.state) {
+      if (kuchlanish && this.PinType == PINTYPE.CHIQISH) {
+        this.Wires.forEach((wire) => {
+          wire.setState(kuchlanish);
+        });
+      } else if (this.PinType == PINTYPE.CHIQISH) {
+        this.Wires.forEach((wire) => {
+          wire.setState(KUCHLANISH.PAST);
+        });
+      }
+      this.state = kuchlanish;
+      for (const key in this.Pins) {
+        this.Pins[key].komponent.detectPinsStates();
+        this.Pins[key].komponent.Fire();
+      }
     }
   }
-  updateState() {
-    // this.Write(
-    //   Object.keys(this.inputPins)
-    //     .map((key) => this.inputPins[key].state)
-    //     .some((val) => val == KUCHLANISH.YUQORI)
-    //     ? KUCHLANISH.YUQORI
-    //     : KUCHLANISH.PAST
-    // );
-  }
+
   addPin(komponent: Komponent = null, pinName: Pin = null) {
     let a = komponent.uuid;
     if (this.Pins[a]) {

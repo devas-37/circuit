@@ -16,10 +16,11 @@ export class NAND extends Komponent {
       B: new Pin("B", PINTYPE.KIRISH),
       C: new Pin("C", PINTYPE.CHIQISH, POSITION.RIGHT),
     });
+    this.Pins["C"].state = KUCHLANISH.YUQORI;
   }
 
   Fire() {
-    if (!this.Pins.A.state && this.Pins.B.state) {
+    if (!(this.Pins.A.state && this.Pins.B.state)) {
       this.Pins.C.Write(KUCHLANISH.YUQORI);
     } else {
       this.Pins.C.Write(KUCHLANISH.PAST);

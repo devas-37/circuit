@@ -16,10 +16,6 @@ export class Buffer extends Komponent {
   }
 
   Fire() {
-    if (this.Pins.A.state & this.Pins.C.state) {
-      this.Pins.C.Write(KUCHLANISH.YUQORI);
-    } else {
-      this.Pins.C.Write(KUCHLANISH.PAST);
-    }
+    this.Pins["C"].Write(this.Pins["A"].state);
   }
 }

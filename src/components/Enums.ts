@@ -46,6 +46,7 @@ export enum TOOLTYPE {
   MUX = "mux",
   SRLATCH = "srl",
   PLM = "plm",
+  LATCH = "l",
 }
 export enum PROGRAMMATORTYPE {
   PLM = "plm",
