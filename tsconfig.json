@@ -6,6 +6,9 @@
     "lib": [
       "dom",
       "es2019"
-    ]
+    ],
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   }
 }

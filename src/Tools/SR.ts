@@ -1,4 +1,4 @@
-import { KUCHLANISH, PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
+import { PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 
@@ -20,34 +20,12 @@ export class SR extends Komponent {
       width: 80,
       height: 72,
     });
-    this.Pins["E"].state = KUCHLANISH.YUQORI;
+    this.Pins["E"].state = true;
   }
   Fire(): void {
     if (this.SRType == "LATCH") this.Latch();
     else this.Trigger();
   }
-  Trigger() {
-    let invalid = this.Pins["A"].state && this.Pins["C"].state;
-    if (this.Pins["B"].state == KUCHLANISH.YUQORI) {
-      if (!invalid) {
-        this.Pins["D"].Write(this.Pins["A"].state);
-        this.Pins["E"].Write(this.Pins["C"].state);
-      } else {
-        this.Pins["D"].Write(KUCHLANISH.PAST);
-        this.Pins["E"].Write(KUCHLANISH.PAST);
-      }
-    }
-  }
-  Latch() {
-    let invalid = this.Pins["A"].state && this.Pins["C"].state;
-    if (!invalid) {
-      if (!invalid) {
-        this.Pins["D"].Write(this.Pins["A"].state);
-        this.Pins["E"].Write(this.Pins["C"].state);
-      } else {
-        this.Pins["D"].Write(KUCHLANISH.PAST);
-        this.Pins["E"].Write(KUCHLANISH.PAST);
-      }
-    }
-  }
+  Trigger() {}
+  Latch() {}
 }

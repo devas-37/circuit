@@ -1,4 +1,4 @@
-import { KUCHLANISH, WIRESTATE } from "./Enums";
+import { WIRESTATE } from "./Enums";
 
 import { v4 as uuid } from "uuid";
 import { IConnector, IPoint, IPointer } from "./Interfaces";
@@ -7,7 +7,7 @@ import { Connnector } from "./Connector";
 
 export class Wire {
   name: string = "";
-  state: KUCHLANISH = KUCHLANISH.PAST;
+  state: boolean = false;
   wireId: string;
   wirePath: SVGElement;
   startPos: IPoint = { x: null, y: null };
@@ -273,9 +273,9 @@ export class Wire {
     this.stopPos = pos;
     this.updatePath();
   }
-  setState(state: KUCHLANISH = KUCHLANISH.PAST) {
+  setState(state: boolean = false) {
     this.state = state;
-    if (state == KUCHLANISH.YUQORI) {
+    if (state) {
       this.pathContainer.style.stroke = "#FF5D5D";
     } else {
       this.pathContainer.style.stroke = "#1B4752";

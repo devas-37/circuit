@@ -13,10 +13,7 @@ export enum POSITION {
   BOTTOM = "bottom",
   LEFT = "left",
 }
-export enum KUCHLANISH {
-  YUQORI = 1,
-  PAST = 0,
-}
+
 export enum WIRESTATE {
   ON = 1,
   OFF = 0,

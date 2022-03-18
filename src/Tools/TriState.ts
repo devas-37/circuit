@@ -1,4 +1,4 @@
-import { KUCHLANISH, PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
+import { PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 
@@ -12,7 +12,7 @@ export class TriState extends Komponent {
     });
     this.setSize({ width: 80, height: 30 });
   }
-  setState(kuchlanish: KUCHLANISH) {
+  setState(kuchlanish: boolean) {
     this.Pins.OUT.Write(kuchlanish);
   }
 }

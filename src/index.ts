@@ -1,4 +1,4 @@
-import { TOOLTYPE, PINTYPE, KUCHLANISH } from "./components/Enums";
+import { TOOLTYPE, PINTYPE } from "./components/Enums";
 import { Komponent } from "./components/Komponent";
 import {
   SR,
@@ -21,6 +21,7 @@ import {
   NOR,
   D,
   XOR,
+  DLatch,
 } from "./Tools/index";
 import "./styles/index.sass";
 import "./styles/gui.sass";
@@ -28,6 +29,7 @@ import "./assets/svg/hz.svg";
 import { Wire } from "./components/Wire";
 import { getId } from "./utils/index";
 import { XNOR } from "./Tools/Xnor";
+import { dlatch } from "./Gates/dlatch";
 let tools = [];
 
 let tb = getId("tb");
@@ -43,7 +45,6 @@ tb.addEventListener("click", () => {
 });
 let GlobalElements: { [key: string]: Komponent } = {};
 let logics = getId("toolbar").querySelectorAll(".logic-gate");
-console.log(logics);
 logics.forEach((gate) => {
   let element = gate as HTMLElement;
   element.onclick = function () {
@@ -114,7 +115,7 @@ logics.forEach((gate) => {
         break;
       }
       case "dL": {
-        el = new D();
+        el = new DLatch();
         break;
       }
       case "buf": {
@@ -122,9 +123,11 @@ logics.forEach((gate) => {
         break;
       }
     }
-    console.log(el);
     GlobalElements[el.uuid] = el;
     saveProject();
   };
 });
+console.log(window);
 export function saveProject() {}
+let d = new dlatch();
+console.log(d);

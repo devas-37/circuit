@@ -1,4 +1,4 @@
-import { KUCHLANISH, PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
+import { PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 
@@ -21,7 +21,7 @@ export class Mux extends Komponent {
     });
   }
   getPinState(name: string) {
-    return this.Pins[name].state == KUCHLANISH.PAST ? 0 : 1;
+    return this.Pins[name].state ? 0 : 1;
   }
   Fire(): void {
     let b = `${this.getPinState("F")}${this.getPinState("E")}`;

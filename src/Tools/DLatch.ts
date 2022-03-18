@@ -2,7 +2,7 @@ import { PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 
-export class D extends Komponent {
+export class DLatch extends Komponent {
   DType: "LATCH" | "TRIGGER";
   constructor(type: "LATCH" | "TRIGGER" = "LATCH") {
     super("", TOOLTYPE.LATCH);
@@ -14,6 +14,7 @@ export class D extends Komponent {
       C: new Pin("C", PINTYPE.CHIQISH, POSITION.RIGHT, "Q"),
       D: new Pin("D", PINTYPE.CHIQISH, POSITION.RIGHT, "Q'"),
     });
+
     this.setSize({
       width: 80,
       height: 72,

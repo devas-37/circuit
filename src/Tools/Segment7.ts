@@ -1,4 +1,4 @@
-import { KUCHLANISH, PINTYPE, TOOLTYPE } from "../components/Enums";
+import { PINTYPE, TOOLTYPE } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 import { createSVG, setAttr } from "../utils/index";
@@ -127,7 +127,7 @@ export class SEGMENT7 extends Komponent {
     this.parent.appendChild(this.paren);
   }
   p(name: string) {
-    return this.Pins[name].state == KUCHLANISH.YUQORI ? 1 : 0;
+    return this.Pins[name].state ? 1 : 0;
   }
   Fire() {
     let bin = `${this.p("D")}${this.p("C")}${this.p("B")}${this.p("A")}`;

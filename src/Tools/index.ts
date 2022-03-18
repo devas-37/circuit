@@ -18,8 +18,10 @@ import { PML } from "./PML";
 import { NAND } from "./Nand";
 import { NOR } from "./Nor";
 import { D } from "./D";
+import { DLatch } from "./DLatch";
 export {
   D,
+  DLatch,
   NAND,
   RAM,
   PLM,

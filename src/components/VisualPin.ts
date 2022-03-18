@@ -8,23 +8,18 @@ import { OR } from "../Tools/Or";
 import { SEGMENT7 } from "../Tools/Segment7";
 import { PinPayload } from "./Interfaces";
 import { createEl, diffLeft } from "../utils/index";
+import { SPin } from "./SPin";
 
-interface CHILD {
-  komponent: Komponent;
-  pins: Array<Pin>;
-}
 interface CHILDS {
-  [name: string]: CHILD;
+  [name: string]: { komponent: Komponent; pins: Array<VPin> };
 }
 
-export class Pin {
+export class VPin {
   private name: string = null;
-  private activePin: string = null;
-  public Pins: CHILDS = {}; // Shu pinga ulangan komponenta
+  public Pins: CHILDS = {};
   public PinType: PINTYPE = PINTYPE.NEYTRAL;
   public Wires: Array<Wire> = [];
   public state: boolean = false;
-  public Qutb: QUTB = QUTB.MANFIY; //Hozircha zarur emas
   public position: POSITION;
   public pinContainer: HTMLElement;
   public parentElement: Komponent;
@@ -32,25 +27,15 @@ export class Pin {
   public onMoveConnect: (e: MouseEvent, payload: PinPayload) => {} | void;
   public onEndConnect: (e: MouseEvent, payload: PinPayload) => {} | void;
   pinId: string;
-  label: string = "";
-  inputPins: { [key: string]: Pin } = {};
-  constructor(
-    name: string,
-    pinType: PINTYPE,
-    position: POSITION = POSITION.LEFT,
-    label: string = null
-  ) {
-    this.label = label;
-    this.pinId = uuid();
-    this.PinType = pinType;
-    this.name = name;
+  inputPins: { [key: string]: VPin } = {};
+  constructor(pin: SPin, pos: POSITION = POSITION.LEFT) {
+    this.pinId = pin.pinId;
+    this.PinType = pin.PinType;
+    this.name = pin.name;
     this.parentElement;
-    this.position = position ? position : POSITION.LEFT;
+    this.position = pos;
     this.pinContainer = createEl("div");
-    this.pinContainer.classList.add(...["elpin", position ? position : "left"]);
-    if (label) {
-      this.pinContainer.innerHTML = `<span>${label}</span>`;
-    }
+    this.pinContainer.classList.add(...["elpin", pos ? pos : "left"]);
     this.pinContainer.onmousedown = (e) => {
       e.stopPropagation();
       this.onBeginConnect(e, {
@@ -119,17 +104,13 @@ export class Pin {
       }
       this.state = kuchlanish;
       for (const key in this.Pins) {
-        this.Pins[key].pins.forEach((pin) => {
-          pin.Write(kuchlanish);
-        });
+        this.Pins[key].komponent.detectPinsStates();
         this.Pins[key].komponent.Fire();
-
-        // this.Pins[key].komponent.detectPinsStates();
       }
     }
   }
 
-  addPin(komponent: Komponent = null, pinName: Pin = null) {
+  addPin(komponent: Komponent = null, pinName: VPin = null) {
     let a = komponent.uuid;
     if (this.Pins[a]) {
       this.Pins[a].pins.push(pinName);
@@ -143,13 +124,5 @@ export class Pin {
 
   addWire(wire: Wire = null) {
     this.Wires.push(wire);
-  }
-
-  getComponents() {
-    let buf = [];
-    for (const key in this.Pins) {
-      buf.push(this.Pins[key].komponent);
-    }
-    return buf;
   }
 }

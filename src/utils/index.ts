@@ -1,4 +1,13 @@
 import { IPoint } from "../components/Interfaces";
+import { and } from "../Gates/and";
+import { buffer } from "../Gates/buffer";
+import { circuit } from "../Gates/circuit";
+import { dlatch } from "../Gates/dlatch";
+import { nand } from "../Gates/nand";
+import { nor } from "../Gates/nor";
+import { not } from "../Gates/not";
+import { or } from "../Gates/or";
+import { xor } from "../Gates/xor";
 
 export const getId = (name: string) => document.getElementById(name);
 export const setAttr = (
@@ -43,6 +52,26 @@ export const drawLines1 = (
   ctx.lineTo(d, height);
   ctx.moveTo(d + (width / 2 + size / 2), 0);
   ctx.lineTo(d + (width / 2 + size / 2), height);
+};
+export const generateTool = (name: string) => {
+  switch (name) {
+    case "nand":
+      return new nand();
+    case "and":
+      return new and();
+    case "or":
+      return new or();
+    case "nor":
+      return new nor();
+    case "xor":
+      return new xor();
+    case "not":
+      return new not();
+    case "buffer":
+      return new buffer();
+    case "dlatch":
+      return new dlatch();
+  }
 };
 export const diffLeft = 0;
 export const diffTop = 0;

@@ -1,16 +1,9 @@
-import {
-  TOOLTYPE,
-  PINTYPE,
-  POSITION,
-  STYLES,
-  KUCHLANISH,
-  WIRESTATE,
-} from "./Enums";
-import { Pin } from "./Pin";
+import { TOOLTYPE, PINTYPE, POSITION, STYLES, WIRESTATE } from "./Enums";
 import { v4 as uuid } from "uuid";
 import { IPoint, PinPayload } from "./Interfaces";
 import { Wire } from "./Wire";
 import { createEl, diffLeft, getId } from "../utils/index";
+import { Pin } from "./Pin";
 type Element = HTMLElement | SVGElement;
 let m = 5;
 let wireBuffer: Wire;
@@ -147,9 +140,7 @@ export class Komponent {
       pin.Write(
         Object.keys(pin.inputPins)
           .map((key) => pin.inputPins[key].state)
-          .some((val) => val == KUCHLANISH.YUQORI)
-          ? KUCHLANISH.YUQORI
-          : KUCHLANISH.PAST
+          .some((val) => val)
       );
     });
   }

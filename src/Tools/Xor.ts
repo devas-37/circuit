@@ -1,4 +1,4 @@
-import { KUCHLANISH, PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
+import { PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 
@@ -13,10 +13,6 @@ export class XOR extends Komponent {
   }
 
   Fire() {
-    if (this.Pins.A.state !== this.Pins.B.state) {
-      this.Pins.C.Write(KUCHLANISH.YUQORI);
-    } else {
-      this.Pins.C.Write(KUCHLANISH.PAST);
-    }
+    this.Pins.C.Write(this.Pins.A.state !== this.Pins.B.state);
   }
 }

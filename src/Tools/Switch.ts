@@ -1,10 +1,4 @@
-import {
-  KUCHLANISH,
-  PINTYPE,
-  POSITION,
-  TOOLTYPE,
-  WIRESTATE,
-} from "../components/Enums";
+import { PINTYPE, POSITION, TOOLTYPE, WIRESTATE } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 import { createEl } from "../utils/index";
@@ -32,12 +26,12 @@ export class Switch extends Komponent {
         swContainer.classList.remove("actionON");
         swContainer.classList.add("actionOFF");
         this.state = WIRESTATE.OFF;
-        this.Pins.A.Write(KUCHLANISH.PAST);
+        this.Pins.A.Write(false);
       } else {
         swContainer.classList.add("actionON");
         swContainer.classList.remove("actionOFF");
         this.state = WIRESTATE.ON;
-        this.Pins.A.Write(KUCHLANISH.YUQORI);
+        this.Pins.A.Write(true);
       }
     };
   }

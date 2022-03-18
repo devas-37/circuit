@@ -1,4 +1,4 @@
-import { KUCHLANISH, PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
+import { PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 

@@ -1,4 +1,4 @@
-import { KUCHLANISH, PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
+import { PINTYPE, POSITION, TOOLTYPE } from "../components/Enums";
 import { Komponent } from "../components/Komponent";
 import { Pin } from "../components/Pin";
 import { createEl } from "../utils/index";
@@ -24,15 +24,15 @@ export class Button extends Komponent {
     this.parent.style.top = this.Location.top + "px";
     this.parent.appendChild(btn);
     let ref = () => {
-      this.Pins["A"].Write(KUCHLANISH.PAST);
+      this.Pins["A"].Write(false);
     };
     btn.onmousedown = (e) => {
       btn.addEventListener("mouseout", ref);
-      this.Pins["A"].Write(KUCHLANISH.YUQORI);
+      this.Pins["A"].Write(true);
     };
     btn.onmouseup = () => {
       btn.removeEventListener("mouseout", ref);
-      this.Pins["A"].Write(KUCHLANISH.PAST);
+      this.Pins["A"].Write(false);
     };
     btn.onmousemove = () => {
       btn.removeEventListener("mouseout", ref);
